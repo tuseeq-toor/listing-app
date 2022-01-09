@@ -4,16 +4,17 @@ import Topnavbar from "./Component/Topnavbar";
 import Home from "./Component/Home";
 import Contact from "./Component/Contact";
 import About from "./Component/About";
-import $ from "jquery";
-
-function App() {
-  $(window).scroll(function () {
-    var sticky = $(".sticky-wrapper"),
-      scroll = $(window).scrollTop();
-
-    if (scroll >= 100) sticky.addClass("is-sticky");
-    else sticky.removeClass("is-sticky");
-  });
+import BrowseCategories from "./Component/BrowseCategories";
+import "./assets/js";
+import { useEffect } from "react";
+import { ExternalJsCall } from "./Utitlies/LoadExternalJs";
+import { stickyHeader } from "./Utitlies/stickyHeader";
+const App = () => {
+  
+  useEffect(() => {
+    ExternalJsCall();
+    stickyHeader()
+  }, []);
   return (
     <div className="main-body">
       <div className="horizontalMenucontainer">
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="contact_us" element={<Contact />} />
             <Route path="about_us" element={<About />} />
+            <Route path="browse_categories" element={<BrowseCategories />} />
           </Routes>
           {/*Footer Section*/}
           <Footer />
@@ -33,6 +35,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

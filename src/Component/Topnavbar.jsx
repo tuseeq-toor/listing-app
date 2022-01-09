@@ -91,27 +91,18 @@ const Topnavbar = ({ history }) => {
                   </Link>
                 </li>
                 <li aria-haspopup="true">
-                  <Link
-                    to="about_us"
-                    className={activeTab === "About Us" ? "active" : ""}
-                    onClick={(e) => handleTab(e, "About Us")}
-                  >
-                    About Us{" "}
-                  </Link>
-                </li>
-                <li aria-haspopup="true">
                   <span className="horizontalMenu-click">
                     <i className="horizontalMenu-arrow fa fa-angle-down" />
                   </span>
-                  <a
-                    href="#"
+                  <Link
+                    to="browse_categories"
                     className={
-                      activeTab === "Product Categories" ? "active" : ""
+                      activeTab === "Browse Categories" ? "active" : ""
                     }
-                    onClick={(e) => handleTab(e, "Product Categories")}
+                    onClick={(e) => handleTab(e, "Browse Categories")}
                   >
-                    Product Categories <span className="fa fa-caret-down m-0" />
-                  </a>
+                    Browse Categories <span className="fa fa-caret-down m-0" />
+                  </Link>
                   <ul className="sub-menu">
                     <li aria-haspopup="true">
                       <a href="classified.html">Restaurant</a>
@@ -135,6 +126,15 @@ const Topnavbar = ({ history }) => {
                       <a href="classified-right.html">Sports &amp; Outdoors</a>
                     </li>
                   </ul>
+                </li>
+                <li aria-haspopup="true">
+                  <Link
+                    to="about_us"
+                    className={activeTab === "About Us" ? "active" : ""}
+                    onClick={(e) => handleTab(e, "About Us")}
+                  >
+                    About Us{" "}
+                  </Link>
                 </li>
                 <li aria-haspopup="true">
                   <Link
