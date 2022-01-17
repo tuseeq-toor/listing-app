@@ -9,6 +9,7 @@ import "./assets/js";
 import { useEffect } from "react";
 import { ExternalJsCall } from "./Utitlies/LoadExternalJs";
 import { stickyHeader } from "./Utitlies/stickyHeader";
+import PostAdd from "./Component/PostAdd";
 const App = () => {
   
   useEffect(() => {
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="contact_us" element={<Contact />} />
             <Route path="about_us" element={<About />} />
             <Route path="browse_categories" element={<BrowseCategories />} />
+            <Route path="ad_post" element={<PostAdd/>} />
           </Routes>
           {/*Footer Section*/}
           <Footer />

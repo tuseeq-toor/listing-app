@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
 
 const Topnavbar = ({ history }) => {
   const handleTab = (e, tabName) => {
@@ -7,54 +9,106 @@ const Topnavbar = ({ history }) => {
   };
 
   const [activeTab, setActiveTab] = useState("Home");
+  const [loginPopup, setLoginPopup] = useState(false);
+  const [registerPopup, setRegisterPopup] = useState(false);
+  const hanldeLoginPop = (e) => {
+    e.preventDefault()
+    setLoginPopup(!loginPopup)
+  };
+  const hanldeRegisterPop = (e) => {
+    e.preventDefault()
+    setRegisterPopup(!registerPopup)
+  };
   return (
-    <div className="header-main">
-      {/* Mobile Header */}
-      {/* <Link></Link> */}
-      <div className="sticky sticky-pin" style={{ marginBottom: "0px" }}>
-        <div className="horizontal-header clearfix">
+    <React.Fragment>
+      {/*Topbar*/}
+      <div className="header-main">
+        <div className="top-bar">
           <div className="container">
-            <a id="horizontal-navtoggle" className="animated-arrow">
-              <span />
-            </a>
-            <span className="smllogo">
-              <img
-                className="mobile-light-logo"
-                src="../assets/images/brand/newLogo.png"
-                alt=""
-                height="100%"
-              />
-              <img
-                className="mobile-dark-logo"
-                src="../assets/images/brand/newLogo.png"
-                alt=""
-                height="100%"
-              />
-            </span>
-            <a href="tel:245-6325-3256" className="callusbtn">
-              <i className="fa fa-phone" aria-hidden="true" />
-            </a>
+            <div className="row">
+              <div className="col-xl-12 col-lg-12 col-sm-8 col-5">
+                <div className="top-bar-right">
+                  <ul className="custom">
+                    <li>
+                      <a href="register.html" className="text-dark" onClick={hanldeRegisterPop}>
+                        <i className="fa fa-user me-1" /> <span>Register</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="text-dark"  onClick={hanldeLoginPop}>
+                        <i
+                          className="fa fa-sign-in me-1"
+                         
+                        />{" "}
+                        <span>Login</span>
+                      </a>
+                    </li>
+                    <li className="dropdown">
+                      {/* <a
+                        href="#"
+                        className="text-dark"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i className="fa fa-home me-1" />
+                        <span> My Dashboard</span>
+                      </a> */}
+                      <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <a href="mydash.html" className="dropdown-item">
+                          <i className="dropdown-icon icon icon-user" /> My
+                          Profile
+                        </a>
+                        <a className="dropdown-item" href="#">
+                          <i className="dropdown-icon icon icon-speech" /> Inbox
+                        </a>
+                        <a className="dropdown-item" href="#">
+                          <i className="dropdown-icon icon icon-bell" />{" "}
+                          Notifications
+                        </a>
+                        <a href="mydash.html" className="dropdown-item">
+                          <i className="dropdown-icon  icon icon-settings" />{" "}
+                          Account Settings
+                        </a>
+                        <a className="dropdown-item" href="#">
+                          <i className="dropdown-icon icon icon-power" /> Log
+                          out
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="jumps-prevent" style={{ paddingTop: "0px" }} />
-      {/* /Mobile Header */}
-      <div
-        id="sticky-wrapper"
-        className="sticky-wrapper"
-        style={{
-          height: "80px",
-        }}
-      >
-        <div
-          className="horizontal-main bg-dark-transparent clearfix"
-          style={{
-            width: "1349px",
-            position: " fixed",
-            top: "0px",
-            zIndex: "inherit",
-          }}
-        >
+        {/* Mobile Header */}
+        <div className="sticky">
+          <div className="horizontal-header clearfix ">
+            <div className="container">
+              <a id="horizontal-navtoggle" className="animated-arrow">
+                <span />
+              </a>
+              <span className="smllogo">
+                <img
+                  className="mobile-light-logo"
+                  src="../assets/images/brand/logo.png"
+                  width={120}
+                  alt=""
+                />
+                <img
+                  className="mobile-dark-logo"
+                  src="../assets/images/brand/logo1.png"
+                  width={120}
+                  alt=""
+                />
+              </span>
+              <a href="tel:245-6325-3256" className="callusbtn">
+                <i className="fa fa-phone" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </div>
+        {/* /Mobile Header */}
+        <div className="horizontal-main bg-dark-transparent clearfix">
           <div className="horizontal-mainwrapper container clearfix">
             <div className="desktoplogo" style={{ height: "80px" }}>
               <a href="index.html">
@@ -145,10 +199,14 @@ const Topnavbar = ({ history }) => {
                     Contact Us <span className="wsarrow" />
                   </Link>
                 </li>
-                <li aria-haspopup="true">
-                  <a href="contact.html" className="btn btn-sm btn-warning">
+                <li aria-haspopup="true" className="PostFreeAdd">
+                  <Link
+                    to="ad_post"
+                    onClick={(e) => handleTab(e, "")}
+                    className="btn btn-sm btn-warning text-white"
+                  >
                     Post Free Ad
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -156,7 +214,10 @@ const Topnavbar = ({ history }) => {
           </div>
         </div>
       </div>
-    </div>
+      {loginPopup ? <Login open={loginPopup} close={hanldeLoginPop}/> : null}
+      {registerPopup ? <Register open={registerPopup} close={hanldeRegisterPop}/> : null}
+      
+    </React.Fragment>
   );
 };
 export default Topnavbar;

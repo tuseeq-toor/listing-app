@@ -49,4 +49,8 @@ export const ExternalJsCall = () => {
 
     // <!-- Ion.RangeSlider -->
     loadjs("./assets/plugins/jquery-uislider/jquery-ui.js");
+
+
+    // <!--Horizontal Menu-->
+    loadjs("./assets/plugins/Horizontal2/Horizontal-menu/horizontal.js");
   };

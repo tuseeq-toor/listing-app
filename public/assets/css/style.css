@@ -42565,3 +42565,9 @@ a.text-light:hover {
     min-width: 150px;
 }
 /*# sourceMappingURL=style.css.map */
+
+
+/* Custom styling*/
+.PostFreeAdd:hover>a {
+    background-color:#fb9512 !important
+}

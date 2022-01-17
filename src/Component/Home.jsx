@@ -1,10 +1,9 @@
 import React from "react";
-import { NavLink ,Link} from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 export default function Home() {
   return (
     <React.Fragment>
-    
       {/*Sliders Section*/}
       <section>
         <div
@@ -18,11 +17,7 @@ export default function Home() {
           <div className="header-text mb-0">
             <div className="container">
               <div className="text-center text-white mb-7">
-                <h1 className="mb-1">Find Your Best Classified</h1>
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable.
-                </p>
+                <h1 className="mb-1">Botswana's Marketplace</h1>
               </div>
               <div className="row">
                 <div className="col-xl-10 col-lg-12 col-md-12 d-block mx-auto">
@@ -62,6 +57,7 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
+                   
                   </div>
                 </div>
               </div>
@@ -804,13 +800,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -904,13 +900,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1004,13 +1000,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 12 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1104,13 +1100,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1204,13 +1200,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1304,13 +1300,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1404,13 +1400,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1504,13 +1500,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 12 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1604,13 +1600,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1704,13 +1700,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1804,13 +1800,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -1904,13 +1900,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 22 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -2004,13 +2000,13 @@ export default function Home() {
                             </a>
                           </div>
                           <ul className="item-cards7-ic mb-0">
-                            <li>
+                            {/* <li>
                               <a href="#">
                                 <span className="text-muted">
                                   <i className="icon icon-eye me-1" /> 12 Views
                                 </span>
                               </a>
-                            </li>
+                            </li> */}
                             <li>
                               <a href="#" className="icons">
                                 <i className="icon icon-location-pin text-muted me-1" />
@@ -2699,9 +2695,6 @@ export default function Home() {
         </div>
       </section>
       {/*/Testimonials*/}
-
-    
-     
     </React.Fragment>
   );
 }
