@@ -10,30 +10,33 @@ import { useEffect } from "react";
 import { ExternalJsCall } from "./Utitlies/LoadExternalJs";
 import { stickyHeader } from "./Utitlies/stickyHeader";
 import PostAdd from "./Component/PostAdd";
+import { Provider } from "react-redux";
+import Store from "./Component/Store";
 const App = () => {
-  
   useEffect(() => {
     ExternalJsCall();
-    stickyHeader()
+    stickyHeader();
   }, []);
   return (
     <div className="main-body">
       <div className="horizontalMenucontainer">
-        <Router>
-          {/*Topbar*/}
-          <Topnavbar />
-          {/*Topbar*/}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="contact_us" element={<Contact />} />
-            <Route path="about_us" element={<About />} />
-            <Route path="browse_categories" element={<BrowseCategories />} />
-            <Route path="ad_post" element={<PostAdd/>} />
-          </Routes>
-          {/*Footer Section*/}
-          <Footer />
-          {/*Footer Section*/}
-        </Router>
+        <Provider store={Store}>
+          <Router>
+            {/*Topbar*/}
+            <Topnavbar />
+            {/*Topbar*/}
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="contact_us" element={<Contact />} />
+              <Route path="about_us" element={<About />} />
+              <Route path="browse_categories" element={<BrowseCategories />} />
+              <Route path="ad_post" element={<PostAdd />} />
+            </Routes>
+            {/*Footer Section*/}
+            <Footer />
+            {/*Footer Section*/}
+          </Router>
+        </Provider>
       </div>
     </div>
   );

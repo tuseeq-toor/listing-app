@@ -2,15 +2,321 @@ import React, { useEffect, useState } from "react";
 import { ExternalJsCall } from "../Utitlies/LoadExternalJs";
 import { Link } from "react-router-dom";
 import Product from "./Product";
+import { callApi } from "../Utitlies/callAPI";
 
 const BrowseCategories = () => {
   useEffect(() => {
     ExternalJsCall();
+    getNonpremiumadd();
+    getCategory();
+    getLocation();
   }, []);
+  const [searchModal, setSearchModal] = useState({ cat: "", loc: "" });
+  const [allAdds, setAllAdds] = useState([]);
+  const [allAddsFilter, setAllAddsFilter] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  const [locationList, setLocationList] = useState([]);
+  const handlePageKey = (key) => {
+    setCurrentPageKey(key);
+  };
+  const getNonpremiumadd = async () => {
+    const adds = await callApi("/ad/getnonpremium");
+    setAllAdds(adds);
+    setAllAddsFilter(adds);
+  };
 
-  const handlePageKey=(key)=>{
-    setCurrentPageKey(key)
-  }
+  const getCategory = async () => {
+    const categoryData = await callApi("/category", "get");
+    setCategoryList(categoryData);
+  };
+  const getLocation = () => {
+    const location = {
+      AD: "Andorra",
+      AE: "United Arab Emirates",
+      AF: "Afghanistan",
+      AG: "Antigua and Barbuda",
+      AI: "Anguilla",
+      AL: "Albania",
+      AM: "Armenia",
+      AN: "Netherlands Antilles",
+      AO: "Angola",
+      AQ: "Antarctica",
+      AR: "Argentina",
+      AS: "American Samoa",
+      AT: "Austria",
+      AU: "Australia",
+      AW: "Aruba",
+      AX: "Aland Islands",
+      AZ: "Azerbaijan",
+      BA: "Bosnia and Herzegovina",
+      BB: "Barbados",
+      BD: "Bangladesh",
+      BE: "Belgium",
+      BF: "Burkina Faso",
+      BG: "Bulgaria",
+      BH: "Bahrain",
+      BI: "Burundi",
+      BJ: "Benin",
+      BL: "Saint Barthelemy",
+      BM: "Bermuda",
+      BN: "Brunei",
+      BO: "Bolivia",
+      BQ: "Bonaire, Saint Eustatius and Saba ",
+      BR: "Brazil",
+      BS: "Bahamas",
+      BT: "Bhutan",
+      BV: "Bouvet Island",
+      BW: "Botswana",
+      BY: "Belarus",
+      BZ: "Belize",
+      CA: "Canada",
+      CC: "Cocos Islands",
+      CD: "Democratic Republic of the Congo",
+      CF: "Central African Republic",
+      CG: "Republic of the Congo",
+      CH: "Switzerland",
+      CI: "Ivory Coast",
+      CK: "Cook Islands",
+      CL: "Chile",
+      CM: "Cameroon",
+      CN: "China",
+      CO: "Colombia",
+      CR: "Costa Rica",
+      CS: "Serbia and Montenegro",
+      CU: "Cuba",
+      CV: "Cape Verde",
+      CW: "Curacao",
+      CX: "Christmas Island",
+      CY: "Cyprus",
+      CZ: "Czechia",
+      DE: "Germany",
+      DJ: "Djibouti",
+      DK: "Denmark",
+      DM: "Dominica",
+      DO: "Dominican Republic",
+      DZ: "Algeria",
+      EC: "Ecuador",
+      EE: "Estonia",
+      EG: "Egypt",
+      EH: "Western Sahara",
+      ER: "Eritrea",
+      ES: "Spain",
+      ET: "Ethiopia",
+      FI: "Finland",
+      FJ: "Fiji",
+      FK: "Falkland Islands",
+      FM: "Micronesia",
+      FO: "Faroe Islands",
+      FR: "France",
+      GA: "Gabon",
+      GB: "United Kingdom",
+      GD: "Grenada",
+      GE: "Georgia",
+      GF: "French Guiana",
+      GG: "Guernsey",
+      GH: "Ghana",
+      GI: "Gibraltar",
+      GL: "Greenland",
+      GM: "Gambia",
+      GN: "Guinea",
+      GP: "Guadeloupe",
+      GQ: "Equatorial Guinea",
+      GR: "Greece",
+      GS: "South Georgia and the South Sandwich Islands",
+      GT: "Guatemala",
+      GU: "Guam",
+      GW: "Guinea-Bissau",
+      GY: "Guyana",
+      HK: "Hong Kong",
+      HM: "Heard Island and McDonald Islands",
+      HN: "Honduras",
+      HR: "Croatia",
+      HT: "Haiti",
+      HU: "Hungary",
+      ID: "Indonesia",
+      IE: "Ireland",
+      IL: "Israel",
+      IM: "Isle of Man",
+      IN: "India",
+      IO: "British Indian Ocean Territory",
+      IQ: "Iraq",
+      IR: "Iran",
+      IS: "Iceland",
+      IT: "Italy",
+      JE: "Jersey",
+      JM: "Jamaica",
+      JO: "Jordan",
+      JP: "Japan",
+      KE: "Kenya",
+      KG: "Kyrgyzstan",
+      KH: "Cambodia",
+      KI: "Kiribati",
+      KM: "Comoros",
+      KN: "Saint Kitts and Nevis",
+      KP: "North Korea",
+      KR: "South Korea",
+      KW: "Kuwait",
+      KY: "Cayman Islands",
+      KZ: "Kazakhstan",
+      LA: "Laos",
+      LB: "Lebanon",
+      LC: "Saint Lucia",
+      LI: "Liechtenstein",
+      LK: "Sri Lanka",
+      LR: "Liberia",
+      LS: "Lesotho",
+      LT: "Lithuania",
+      LU: "Luxembourg",
+      LV: "Latvia",
+      LY: "Libya",
+      MA: "Morocco",
+      MC: "Monaco",
+      MD: "Moldova",
+      ME: "Montenegro",
+      MF: "Saint Martin",
+      MG: "Madagascar",
+      MH: "Marshall Islands",
+      MK: "Macedonia",
+      ML: "Mali",
+      MM: "Myanmar",
+      MN: "Mongolia",
+      MO: "Macao",
+      MP: "Northern Mariana Islands",
+      MQ: "Martinique",
+      MR: "Mauritania",
+      MS: "Montserrat",
+      MT: "Malta",
+      MU: "Mauritius",
+      MV: "Maldives",
+      MW: "Malawi",
+      MX: "Mexico",
+      MY: "Malaysia",
+      MZ: "Mozambique",
+      NA: "Namibia",
+      NC: "New Caledonia",
+      NE: "Niger",
+      NF: "Norfolk Island",
+      NG: "Nigeria",
+      NI: "Nicaragua",
+      NL: "Netherlands",
+      NO: "Norway",
+      NP: "Nepal",
+      NR: "Nauru",
+      NU: "Niue",
+      NZ: "New Zealand",
+      OM: "Oman",
+      PA: "Panama",
+      PE: "Peru",
+      PF: "French Polynesia",
+      PG: "Papua New Guinea",
+      PH: "Philippines",
+      PK: "Pakistan",
+      PL: "Poland",
+      PM: "Saint Pierre and Miquelon",
+      PN: "Pitcairn",
+      PR: "Puerto Rico",
+      PS: "Palestinian Territory",
+      PT: "Portugal",
+      PW: "Palau",
+      PY: "Paraguay",
+      QA: "Qatar",
+      RE: "Reunion",
+      RO: "Romania",
+      RS: "Serbia",
+      RU: "Russia",
+      RW: "Rwanda",
+      SA: "Saudi Arabia",
+      SB: "Solomon Islands",
+      SC: "Seychelles",
+      SD: "Sudan",
+      SE: "Sweden",
+      SG: "Singapore",
+      SH: "Saint Helena",
+      SI: "Slovenia",
+      SJ: "Svalbard and Jan Mayen",
+      SK: "Slovakia",
+      SL: "Sierra Leone",
+      SM: "San Marino",
+      SN: "Senegal",
+      SO: "Somalia",
+      SR: "Suriname",
+      SS: "South Sudan",
+      ST: "Sao Tome and Principe",
+      SV: "El Salvador",
+      SX: "Sint Maarten",
+      SY: "Syria",
+      SZ: "Swaziland",
+      TC: "Turks and Caicos Islands",
+      TD: "Chad",
+      TF: "French Southern Territories",
+      TG: "Togo",
+      TH: "Thailand",
+      TJ: "Tajikistan",
+      TK: "Tokelau",
+      TL: "Timor Leste",
+      TM: "Turkmenistan",
+      TN: "Tunisia",
+      TO: "Tonga",
+      TR: "Turkey",
+      TT: "Trinidad and Tobago",
+      TV: "Tuvalu",
+      TW: "Taiwan",
+      TZ: "Tanzania",
+      UA: "Ukraine",
+      UG: "Uganda",
+      UM: "United States Minor Outlying Islands",
+      US: "United States",
+      UY: "Uruguay",
+      UZ: "Uzbekistan",
+      VA: "Vatican",
+      VC: "Saint Vincent and the Grenadines",
+      VE: "Venezuela",
+      VG: "British Virgin Islands",
+      VI: "U.S. Virgin Islands",
+      VN: "Vietnam",
+      VU: "Vanuatu",
+      WF: "Wallis and Futuna",
+      WS: "Samoa",
+      XK: "Kosovo",
+      YE: "Yemen",
+      YT: "Mayotte",
+      ZA: "South Africa",
+      ZM: "Zambia",
+      ZW: "Zimbabwe",
+    };
+    const locationArr = Object.values(location);
+    setLocationList(locationArr);
+  };
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setSearchModal({
+      ...searchModal,
+      [name]: value,
+    });
+  };
+  useEffect(() => {
+    hanldeSearch();
+  }, [searchModal]);
+
+  const hanldeSearch = () => {
+    let allAddsforFilter = [...allAdds];
+    const { cat, loc } = searchModal;
+    let filterAdds = allAddsforFilter;
+    if (cat && loc) {
+      filterAdds = allAddsforFilter.filter(
+        (items) => items.category === cat && items.location === loc
+      );
+    } else {
+      if (cat) {
+        filterAdds = allAddsforFilter.filter((items) => items.category === cat);
+      }
+      if (loc) {
+        filterAdds = allAddsforFilter.filter((items) => items.category === loc);
+      }
+    }
+    setAllAddsFilter(filterAdds);
+  };
 
   const [CurrentPageKey, setCurrentPageKey] = useState(100);
   const browseCategory = (
@@ -96,27 +402,42 @@ const BrowseCategories = () => {
                           <div className="row">
                             <div className="col-lg-3 col-md-12">
                               <h6 className="mb-0 mt-2">
-                                Showing 1 to 10 of 30 entries
+                                Showing 1 to {(allAddsFilter || []).length} of{" "}
+                                {(allAdds || []).length} entries
                               </h6>
                             </div>
                             <div className="col-lg-4 col-md-12 d-flex">
-                              <select className="form-control form-control-sm">
-                                <option value="volvo">
-                                  Search by Category
-                                </option>
-                                <option value="saab">Animal</option>
-                                <option value="mercedes">Jobs</option>
-                                <option value="audi">Property</option>
+                              <select
+                                className="form-control"
+                                name="cat"
+                                value={searchModal.cat}
+                                onChange={handleInput}
+                              >
+                                <option value={0}>Select Category</option>
+                                {categoryList.map((items) => {
+                                  return (
+                                    <option value={items.name} key={items.id}>
+                                      {items.name}
+                                    </option>
+                                  );
+                                })}
                               </select>
                             </div>
                             <div className="col-lg-3 col-md-12 d-flex">
-                              <select className="form-control form-control-sm">
-                                <option value="volvo">
-                                  Search by Location
-                                </option>
-                                <option value="saab">USA</option>
-                                <option value="mercedes">UK</option>
-                                <option value="audi">Canada</option>
+                              <select
+                                className="form-control"
+                                name="loc"
+                                value={searchModal.loc}
+                                onChange={handleInput}
+                              >
+                                <option value={0}>Select Location</option>
+                                {locationList.map((items, i) => {
+                                  return (
+                                    <option value={items} key={i}>
+                                      {items}
+                                    </option>
+                                  );
+                                })}
                               </select>
                             </div>
                             <div className="col-lg-2 col-md-12">
@@ -132,662 +453,103 @@ const BrowseCategories = () => {
                       <div className="tab-content">
                         <div className="tab-pane active" id="tab-12">
                           <div className="row">
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="ribbon ribbon-top-left text-danger">
-                                  <span className="bg-danger">featured</span>
-                                </div>
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/h4.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">RealEstate</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        2BK flat
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
+                            {(allAddsFilter || []).map((items) => {
+                              return (
+                                <div className="col-lg-4 col-md-12 col-xl-3">
+                                  <div className="card overflow-hidden">
+                                    {/* <div className="ribbon ribbon-top-left text-danger">
+                                      <span className="bg-danger">
+                                        featured
+                                      </span>
+                                    </div> */}
+                                    <div className="item-card9-img">
+                                      <div className="item-card9-imgs">
+                                        <a
+                                          onClick={() => handlePageKey(101)}
+                                          style={{ cursor: "pointer" }}
+                                        />
+                                        <img
+                                          src="../assets/images/products/h4.png"
+                                          alt="img"
+                                          className="cover-image"
+                                        />
+                                      </div>
+                                      <div className="item-card9-icons">
+                                        <a
+                                          href="#"
+                                          className="item-card9-icons1 wishlist"
+                                        >
+                                          <i className="fa fa fa-heart-o" />
                                         </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
+                                      </div>
+                                    </div>
+                                    <div className="card-body">
+                                      <div className="item-card9">
+                                        <a href="classified.html">
+                                          {items.category}
                                         </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
+                                        <a
+                                          href="classified.html"
+                                          className="text-dark mt-2"
+                                        >
+                                          <h4 className="font-weight-semibold mt-1">
+                                            {items.title}
+                                          </h4>
                                         </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
+                                        <p>{items.description}</p>
+                                        <ul className="item-cards7-ic mb-0">
+                                          <li>
+                                            <a href="#" className="icons">
+                                              <i className="icon icon-location-pin text-muted me-1" />
+                                              {items.location}
+                                            </a>
+                                          </li>
+                                          <li>
+                                            <a href="#" className="icons">
+                                              <i className="icon icon-event text-muted me-1" />{" "}
+                                              1 hours ago
+                                            </a>
+                                          </li>
+                                          <li style={{ width: "100%" }}>
+                                            <a href="#" className="icons">
+                                              <i className="icon icon-phone text-muted me-1" />{" "}
+                                              {items.phonenumber}
+                                            </a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div className="card-footer">
+                                      <div className="item-card9-footer d-flex">
+                                        <div className="item-card9-cost">
+                                          <h4
+                                            className="
                                 text-dark
                                 font-weight-semibold
                                 mb-0
                                 mt-0
                               "
-                                      >
-                                        $263.99
-                                      </h4>
-                                    </div>
-                                    <div class="ms-auto">
-                                      <div
-                                        class="rating-star sm my-rating-5"
-                                        data-stars="4s"
-                                      ></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="ribbon ribbon-top-left text-danger">
-                                  <span className="bg-danger">featured</span>
-                                </div>
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/j2.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist active"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">Jobs</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        Horbica Consulting
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
-                                        </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                      >
-                                        $745.00
-                                      </h4>
+                                          >
+                                            $263.99
+                                          </h4>
+                                        </div>
+                                        <div class="ms-auto">
+                                          <div
+                                            class="rating-star sm my-rating-5"
+                                            data-stars="4s"
+                                          ></div>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="ribbon ribbon-top-left text-danger">
-                                  <span className="bg-danger">featured</span>
-                                </div>
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/pe1.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">Animals</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        kenco petcenter
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
-                                        </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                      >
-                                        $149.00
-                                      </h4>
-                                    </div>
-                                    <div class="ms-auto">
-                                      <div
-                                        class="rating-star sm my-rating-5"
-                                        data-stars="4s"
-                                      ></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/pe1.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">Animals</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        kenco petcenter
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
-                                        </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                      >
-                                        $149.00
-                                      </h4>
-                                    </div>
-                                    <div class="ms-auto">
-                                      <div
-                                        class="rating-star sm my-rating-5"
-                                        data-stars="4s"
-                                      ></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/pe1.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">Animals</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        kenco petcenter
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
-                                        </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                      >
-                                        $149.00
-                                      </h4>
-                                    </div>
-                                    <div class="ms-auto">
-                                      <div
-                                        class="rating-star sm my-rating-5"
-                                        data-stars="4s"
-                                      ></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/pe1.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">Animals</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        kenco petcenter
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
-                                        </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                      >
-                                        $149.00
-                                      </h4>
-                                    </div>
-                                    <div class="ms-auto">
-                                      <div
-                                        class="rating-star sm my-rating-5"
-                                        data-stars="4s"
-                                      ></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/pe1.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">Animals</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        kenco petcenter
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
-                                        </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                      >
-                                        $149.00
-                                      </h4>
-                                    </div>
-                                    <div class="ms-auto">
-                                      <div
-                                        class="rating-star sm my-rating-5"
-                                        data-stars="4s"
-                                      ></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-lg-4 col-md-12 col-xl-3">
-                              <div className="card overflow-hidden">
-                                <div className="item-card9-img">
-                                  <div className="item-card9-imgs">
-                                    <a onClick={()=>handlePageKey(101)} style={{cursor:"pointer"}}/>
-                                    <img
-                                      src="../assets/images/products/pe1.png"
-                                      alt="img"
-                                      className="cover-image"
-                                    />
-                                  </div>
-                                  <div className="item-card9-icons">
-                                    <a
-                                      href="#"
-                                      className="item-card9-icons1 wishlist"
-                                    >
-                                      <i className="fa fa fa-heart-o" />
-                                    </a>
-                                  </div>
-                                </div>
-                                <div className="card-body">
-                                  <div className="item-card9">
-                                    <a href="classified.html">Animals</a>
-                                    <a
-                                      href="classified.html"
-                                      className="text-dark mt-2"
-                                    >
-                                      <h4 className="font-weight-semibold mt-1">
-                                        kenco petcenter
-                                      </h4>
-                                    </a>
-                                    <p>
-                                      Ut enim ad minima veniamq nostrum exerci
-                                      ullam orisin suscipit laboriosam
-                                    </p>
-                                    <ul className="item-cards7-ic mb-0">
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-location-pin text-muted me-1" />
-                                          UK
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-event text-muted me-1" />{" "}
-                                          1 hours ago
-                                        </a>
-                                      </li>
-                                      <li style={{ width: "100%" }}>
-                                        <a href="#" className="icons">
-                                          <i className="icon icon-phone text-muted me-1" />{" "}
-                                          14 675 65430
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="card-footer">
-                                  <div className="item-card9-footer d-flex">
-                                    <div className="item-card9-cost">
-                                      <h4
-                                        className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                      >
-                                        $149.00
-                                      </h4>
-                                    </div>
-                                    <div class="ms-auto">
-                                      <div
-                                        class="rating-star sm my-rating-5"
-                                        data-stars="4s"
-                                      ></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                              );
+                            })}
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="center-block text-center">
+                    {/* <div className="center-block text-center">
                       <ul className="pagination mb-5">
                         <li className="page-item page-prev disabled">
                           <a className="page-link" href="#" tabIndex={-1}>
@@ -815,7 +577,7 @@ const BrowseCategories = () => {
                           </a>
                         </li>
                       </ul>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 {/*/Add lists*/}
@@ -830,8 +592,7 @@ const BrowseCategories = () => {
   const product = <Product />;
   if (CurrentPageKey === 100) {
     return <React.Fragment>{browseCategory}</React.Fragment>;
-  }
-   else if (CurrentPageKey === 101) {
+  } else if (CurrentPageKey === 101) {
     return <React.Fragment>{product}</React.Fragment>;
   }
 };

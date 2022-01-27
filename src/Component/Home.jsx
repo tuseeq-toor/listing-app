@@ -1,7 +1,16 @@
-import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
+  useEffect(() => {
+    getCategoris();
+  }, []);
+
+  const [categorisData, setCategorisData] = useState([]);
+  const getCategoris = async () => {
+    const data = await axios.get(`${process.env.REACT_APP_URL_USER}/category`);
+    setCategorisData(data?.data);
+  };
   return (
     <React.Fragment>
       {/*Sliders Section*/}
@@ -57,7 +66,6 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
-                   
                   </div>
                 </div>
               </div>
@@ -67,7 +75,6 @@ export default function Home() {
         </div>
       </section>
       {/*Sliders Section*/}
-      {/*Categories*/}
       <section className="categories">
         <div className="container">
           <div
@@ -78,7 +85,7 @@ export default function Home() {
               <div
                 className="owl-stage"
                 style={{
-                  transform: "translate3d(-3302px, 0px, 0px)",
+                  transform: "translate3d(-3603px, 0px, 0px)",
                   transition: "all 0.25s ease 0s",
                   width: "7206px",
                 }}
@@ -381,7 +388,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div
-                  className="owl-item active"
+                  className="owl-item"
                   style={{ width: "275.25px", marginRight: "25px" }}
                 >
                   <div className="item">
@@ -489,7 +496,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div
-                  className="owl-item"
+                  className="owl-item active"
                   style={{ width: "275.25px", marginRight: "25px" }}
                 >
                   <div className="item">
@@ -745,7 +752,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/*Categories*/}
       {/*Featured Ads*/}
       <section className="sptb bg-patterns">
         <div className="container">
