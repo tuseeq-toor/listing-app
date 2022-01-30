@@ -12,6 +12,7 @@ import { stickyHeader } from "./Utitlies/stickyHeader";
 import PostAdd from "./Component/PostAdd";
 import { Provider } from "react-redux";
 import Store from "./Component/Store";
+import MyAds from "./Component/MyAds";
 const App = () => {
   useEffect(() => {
     ExternalJsCall();
@@ -31,6 +32,8 @@ const App = () => {
               <Route path="about_us" element={<About />} />
               <Route path="browse_categories" element={<BrowseCategories />} />
               <Route path="ad_post" element={<PostAdd />} />
+              <Route path="my_ads" element={<MyAds/>} />
+
             </Routes>
             {/*Footer Section*/}
             <Footer />

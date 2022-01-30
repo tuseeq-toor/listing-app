@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import { mapStateToProps, mapDispatchToProps } from "./Action/Action";
 import { connect } from "react-redux";
+import { callApi } from "../Utitlies/callAPI";
 
 class Topnavbar extends Component {
   constructor(props) {
@@ -20,12 +21,17 @@ class Topnavbar extends Component {
 
   hanldeLoginPop = (e) => {
     e.preventDefault();
-    debugger
     this.setState({ loginPopup: !this.state.loginPopup });
   };
   hanldeRegisterPop = (e) => {
     e.preventDefault();
     this.setState({ registerPopup: !this.state.registerPopup });
+  };
+  hanldeLogout = async () => {
+    const response = await callApi("/logout", "post");
+    if (response) {
+      this.props.logIn("");
+    }
   };
   render() {
     const { activeTab, loginPopup, registerPopup } = this.state;
@@ -60,37 +66,34 @@ class Topnavbar extends Component {
                             <span>Login</span>
                           </a>
                         </li>
-                        <li className="dropdown">
-                          {/* <a
-                        href="#"
-                        className="text-dark"
-                        data-bs-toggle="dropdown"
-                      >
-                        <i className="fa fa-home me-1" />
-                        <span> My Dashboard</span>
-                      </a> */}
-                          <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a href="mydash.html" className="dropdown-item">
-                              <i className="dropdown-icon icon icon-user" /> My
-                              Profile
-                            </a>
-                            <a className="dropdown-item" href="#">
-                              <i className="dropdown-icon icon icon-speech" />{" "}
-                              Inbox
-                            </a>
-                            <a className="dropdown-item" href="#">
-                              <i className="dropdown-icon icon icon-bell" />{" "}
-                              Notifications
-                            </a>
-                            <a href="mydash.html" className="dropdown-item">
-                              <i className="dropdown-icon  icon icon-settings" />{" "}
-                              Account Settings
-                            </a>
-                            <a className="dropdown-item" href="#">
-                              <i className="dropdown-icon icon icon-power" />{" "}
-                              Log out
-                            </a>
-                          </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="top-bar">
+              <div className="container">
+                <div className="row">
+                  <div className="col-xl-12 col-lg-12 col-sm-8 col-5">
+                    <div className="top-bar-right">
+                      <ul className="custom">
+                        <li>
+                          <Link to="my_ads" className="text-dark">
+                            <i className="fa fa-user me-1" />{" "}
+                            <span>My Ads</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="text-dark"
+                            onClick={this.hanldeLogout}
+                          >
+                            <i className="fa fa-sign-in me-1" />{" "}
+                            <span>Logout</span>
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -98,7 +101,7 @@ class Topnavbar extends Component {
                 </div>
               </div>
             </div>
-          ) : null}
+          )}
 
           {/* Mobile Header */}
           <div className="sticky">

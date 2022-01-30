@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { callApi } from "../Utitlies/callAPI";
+import Swal from "sweetalert2";
 
 const Contact = () => {
+  const [saveModal, setSaveModal] = useState({
+    sendername: "",
+    senderemail: "",
+    messbody: "",
+  });
+  const handleInput = (e) => {
+    const { value, name } = e.target;
+    setSaveModal({
+      ...saveModal,
+      [name]: value,
+    });
+  };
+  const handlePostMessage = async () => {
+    const respone = await callApi("/contactmessage", "post", saveModal);
+    if (respone) {
+      Swal.fire("Message sent successfully", "", "success");
+    }
+  };
   return (
     <div>
       {/*Breadcrumb*/}
@@ -66,6 +86,9 @@ const Contact = () => {
                             className="form-control"
                             id="name1"
                             placeholder="Your Name"
+                            name="sendername"
+                            value={saveModal.sendername}
+                            onChange={handleInput}
                           />
                         </div>
                         <div className="form-group">
@@ -74,6 +97,9 @@ const Contact = () => {
                             className="form-control"
                             id="email"
                             placeholder="Email Address"
+                            name="senderemail"
+                            value={saveModal.senderemail}
+                            onChange={handleInput}
                           />
                         </div>
                         <div className="form-group">
@@ -83,11 +109,17 @@ const Contact = () => {
                             rows={6}
                             placeholder="Message"
                             defaultValue={""}
+                            name="messbody"
+                            value={saveModal.messbody}
+                            onChange={handleInput}
                           />
                         </div>
-                        <a href="#" className="btn btn-primary">
+                        <button
+                          className="btn btn-primary"
+                          onClick={handlePostMessage}
+                        >
                           Send Message
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>

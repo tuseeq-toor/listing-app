@@ -3,291 +3,89 @@ import { ExternalJsCall } from "../Utitlies/LoadExternalJs";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { callApi } from "../Utitlies/callAPI";
+import { allLocation } from "../Utitlies/location";
+import { useSelector } from "react-redux";
+import PostAdd from "./PostAdd";
+import Swal from "sweetalert2";
 
-const BrowseCategories = () => {
+const MyAds = () => {
   useEffect(() => {
     ExternalJsCall();
     getNonpremiumadd();
     getCategory();
     getLocation();
   }, []);
-  const [searchModal, setSearchModal] = useState({ cat: "", loc: "" });
+  const [searchModal, setSearchModal] = useState({
+    cat: "",
+    loc: "",
+    title: "",
+  });
   const [allAdds, setAllAdds] = useState([]);
   const [allAddsFilter, setAllAddsFilter] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [locationList, setLocationList] = useState([]);
+  const [editAd, setEditAd] = useState({});
+  const [openEditAd, setOpenEditAd] = useState(false);
+  const [CurrentPageKey, setCurrentPageKey] = useState(100);
   const [seletedAdd, setSeletedAdd] = useState({});
+
+  const userInfo = useSelector((state) => state.userInfo.payload);
   const handlePageKey = (e, key) => {
     e.preventDefault();
     setCurrentPageKey(key);
   };
+  const handleEditAdd = (e, items) => {
+    e.preventDefault();
+    setEditAd(items);
+    setOpenEditAd(true);
+  };
+  const handleDeleteAdd = (e, items) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const deleteAdd = await callApi(`/ad/${items._id}`, "delete");
+        if (deleteAdd) {
+          getNonpremiumadd();
+          Swal.fire("Deleted!", "Your Post has been deleted.", "success");
+        }
+      }
+    });
+  };
+  const handleCloseEditAdd = () => {
+    setEditAd({});
+    setOpenEditAd(false);
+  };
+  const handleUpdatePost = async (saveModal) => {
+    const updateAdd = await callApi(`/ad/${editAd._id}`, "patch", saveModal);
+    if (updateAdd) {
+      getNonpremiumadd();
+      handleCloseEditAdd();
+    }
+  };
   const getNonpremiumadd = async () => {
     const adds = await callApi("/ad/getnonpremium");
-    setAllAdds(adds);
-    setAllAddsFilter(adds);
+    console.log("userInfo", userInfo._id);
+    const MyAds = adds.filter((items) => items.sellerid === userInfo._id);
+    setAllAdds(MyAds);
+    setAllAddsFilter(MyAds);
   };
 
   const getCategory = async () => {
     const categoryData = await callApi("/category", "get");
     setCategoryList(categoryData);
   };
+
   const getLocation = () => {
-    const location = {
-      AD: "Andorra",
-      AE: "United Arab Emirates",
-      AF: "Afghanistan",
-      AG: "Antigua and Barbuda",
-      AI: "Anguilla",
-      AL: "Albania",
-      AM: "Armenia",
-      AN: "Netherlands Antilles",
-      AO: "Angola",
-      AQ: "Antarctica",
-      AR: "Argentina",
-      AS: "American Samoa",
-      AT: "Austria",
-      AU: "Australia",
-      AW: "Aruba",
-      AX: "Aland Islands",
-      AZ: "Azerbaijan",
-      BA: "Bosnia and Herzegovina",
-      BB: "Barbados",
-      BD: "Bangladesh",
-      BE: "Belgium",
-      BF: "Burkina Faso",
-      BG: "Bulgaria",
-      BH: "Bahrain",
-      BI: "Burundi",
-      BJ: "Benin",
-      BL: "Saint Barthelemy",
-      BM: "Bermuda",
-      BN: "Brunei",
-      BO: "Bolivia",
-      BQ: "Bonaire, Saint Eustatius and Saba ",
-      BR: "Brazil",
-      BS: "Bahamas",
-      BT: "Bhutan",
-      BV: "Bouvet Island",
-      BW: "Botswana",
-      BY: "Belarus",
-      BZ: "Belize",
-      CA: "Canada",
-      CC: "Cocos Islands",
-      CD: "Democratic Republic of the Congo",
-      CF: "Central African Republic",
-      CG: "Republic of the Congo",
-      CH: "Switzerland",
-      CI: "Ivory Coast",
-      CK: "Cook Islands",
-      CL: "Chile",
-      CM: "Cameroon",
-      CN: "China",
-      CO: "Colombia",
-      CR: "Costa Rica",
-      CS: "Serbia and Montenegro",
-      CU: "Cuba",
-      CV: "Cape Verde",
-      CW: "Curacao",
-      CX: "Christmas Island",
-      CY: "Cyprus",
-      CZ: "Czechia",
-      DE: "Germany",
-      DJ: "Djibouti",
-      DK: "Denmark",
-      DM: "Dominica",
-      DO: "Dominican Republic",
-      DZ: "Algeria",
-      EC: "Ecuador",
-      EE: "Estonia",
-      EG: "Egypt",
-      EH: "Western Sahara",
-      ER: "Eritrea",
-      ES: "Spain",
-      ET: "Ethiopia",
-      FI: "Finland",
-      FJ: "Fiji",
-      FK: "Falkland Islands",
-      FM: "Micronesia",
-      FO: "Faroe Islands",
-      FR: "France",
-      GA: "Gabon",
-      GB: "United Kingdom",
-      GD: "Grenada",
-      GE: "Georgia",
-      GF: "French Guiana",
-      GG: "Guernsey",
-      GH: "Ghana",
-      GI: "Gibraltar",
-      GL: "Greenland",
-      GM: "Gambia",
-      GN: "Guinea",
-      GP: "Guadeloupe",
-      GQ: "Equatorial Guinea",
-      GR: "Greece",
-      GS: "South Georgia and the South Sandwich Islands",
-      GT: "Guatemala",
-      GU: "Guam",
-      GW: "Guinea-Bissau",
-      GY: "Guyana",
-      HK: "Hong Kong",
-      HM: "Heard Island and McDonald Islands",
-      HN: "Honduras",
-      HR: "Croatia",
-      HT: "Haiti",
-      HU: "Hungary",
-      ID: "Indonesia",
-      IE: "Ireland",
-      IL: "Israel",
-      IM: "Isle of Man",
-      IN: "India",
-      IO: "British Indian Ocean Territory",
-      IQ: "Iraq",
-      IR: "Iran",
-      IS: "Iceland",
-      IT: "Italy",
-      JE: "Jersey",
-      JM: "Jamaica",
-      JO: "Jordan",
-      JP: "Japan",
-      KE: "Kenya",
-      KG: "Kyrgyzstan",
-      KH: "Cambodia",
-      KI: "Kiribati",
-      KM: "Comoros",
-      KN: "Saint Kitts and Nevis",
-      KP: "North Korea",
-      KR: "South Korea",
-      KW: "Kuwait",
-      KY: "Cayman Islands",
-      KZ: "Kazakhstan",
-      LA: "Laos",
-      LB: "Lebanon",
-      LC: "Saint Lucia",
-      LI: "Liechtenstein",
-      LK: "Sri Lanka",
-      LR: "Liberia",
-      LS: "Lesotho",
-      LT: "Lithuania",
-      LU: "Luxembourg",
-      LV: "Latvia",
-      LY: "Libya",
-      MA: "Morocco",
-      MC: "Monaco",
-      MD: "Moldova",
-      ME: "Montenegro",
-      MF: "Saint Martin",
-      MG: "Madagascar",
-      MH: "Marshall Islands",
-      MK: "Macedonia",
-      ML: "Mali",
-      MM: "Myanmar",
-      MN: "Mongolia",
-      MO: "Macao",
-      MP: "Northern Mariana Islands",
-      MQ: "Martinique",
-      MR: "Mauritania",
-      MS: "Montserrat",
-      MT: "Malta",
-      MU: "Mauritius",
-      MV: "Maldives",
-      MW: "Malawi",
-      MX: "Mexico",
-      MY: "Malaysia",
-      MZ: "Mozambique",
-      NA: "Namibia",
-      NC: "New Caledonia",
-      NE: "Niger",
-      NF: "Norfolk Island",
-      NG: "Nigeria",
-      NI: "Nicaragua",
-      NL: "Netherlands",
-      NO: "Norway",
-      NP: "Nepal",
-      NR: "Nauru",
-      NU: "Niue",
-      NZ: "New Zealand",
-      OM: "Oman",
-      PA: "Panama",
-      PE: "Peru",
-      PF: "French Polynesia",
-      PG: "Papua New Guinea",
-      PH: "Philippines",
-      PK: "Pakistan",
-      PL: "Poland",
-      PM: "Saint Pierre and Miquelon",
-      PN: "Pitcairn",
-      PR: "Puerto Rico",
-      PS: "Palestinian Territory",
-      PT: "Portugal",
-      PW: "Palau",
-      PY: "Paraguay",
-      QA: "Qatar",
-      RE: "Reunion",
-      RO: "Romania",
-      RS: "Serbia",
-      RU: "Russia",
-      RW: "Rwanda",
-      SA: "Saudi Arabia",
-      SB: "Solomon Islands",
-      SC: "Seychelles",
-      SD: "Sudan",
-      SE: "Sweden",
-      SG: "Singapore",
-      SH: "Saint Helena",
-      SI: "Slovenia",
-      SJ: "Svalbard and Jan Mayen",
-      SK: "Slovakia",
-      SL: "Sierra Leone",
-      SM: "San Marino",
-      SN: "Senegal",
-      SO: "Somalia",
-      SR: "Suriname",
-      SS: "South Sudan",
-      ST: "Sao Tome and Principe",
-      SV: "El Salvador",
-      SX: "Sint Maarten",
-      SY: "Syria",
-      SZ: "Swaziland",
-      TC: "Turks and Caicos Islands",
-      TD: "Chad",
-      TF: "French Southern Territories",
-      TG: "Togo",
-      TH: "Thailand",
-      TJ: "Tajikistan",
-      TK: "Tokelau",
-      TL: "Timor Leste",
-      TM: "Turkmenistan",
-      TN: "Tunisia",
-      TO: "Tonga",
-      TR: "Turkey",
-      TT: "Trinidad and Tobago",
-      TV: "Tuvalu",
-      TW: "Taiwan",
-      TZ: "Tanzania",
-      UA: "Ukraine",
-      UG: "Uganda",
-      UM: "United States Minor Outlying Islands",
-      US: "United States",
-      UY: "Uruguay",
-      UZ: "Uzbekistan",
-      VA: "Vatican",
-      VC: "Saint Vincent and the Grenadines",
-      VE: "Venezuela",
-      VG: "British Virgin Islands",
-      VI: "U.S. Virgin Islands",
-      VN: "Vietnam",
-      VU: "Vanuatu",
-      WF: "Wallis and Futuna",
-      WS: "Samoa",
-      XK: "Kosovo",
-      YE: "Yemen",
-      YT: "Mayotte",
-      ZA: "South Africa",
-      ZM: "Zambia",
-      ZW: "Zimbabwe",
-    };
-    const locationArr = Object.values(location);
-    setLocationList(locationArr);
+    const location = allLocation();
+    setLocationList(location);
   };
 
   const handleInput = (e) => {
@@ -303,11 +101,14 @@ const BrowseCategories = () => {
 
   const hanldeSearch = () => {
     let allAddsforFilter = [...allAdds];
-    const { cat, loc } = searchModal;
+    const { cat, loc, title } = searchModal;
     let filterAdds = allAddsforFilter;
-    if (cat && loc) {
+    if (cat && loc && title) {
       filterAdds = allAddsforFilter.filter(
-        (items) => items.category === cat && items.location === loc
+        (items) =>
+          items.category === cat &&
+          items.location === loc &&
+          items.title === title
       );
     } else {
       if (cat) {
@@ -316,11 +117,17 @@ const BrowseCategories = () => {
       if (loc) {
         filterAdds = allAddsforFilter.filter((items) => items.category === loc);
       }
+      if (title) {
+        filterAdds = allAddsforFilter.filter((items) =>
+          (items.title.toLowerCase() || {}).includes(
+            (title || {}).toLowerCase()
+          )
+        );
+      }
     }
     setAllAddsFilter(filterAdds);
   };
 
-  const [CurrentPageKey, setCurrentPageKey] = useState(100);
   const browseCategory = (
     <React.Fragment>
       <div>
@@ -336,8 +143,10 @@ const BrowseCategories = () => {
                   <div className="col-xl-8 col-lg-12 col-md-12 d-block mx-auto">
                     <div className="text-center text-white">
                       <h1 className>
-                        <span className="font-weight-bold">16,25,365</span>{" "}
-                        Product Available
+                        <span className="font-weight-bold">
+                          {(allAdds || []).length}
+                        </span>{" "}
+                        Product{(allAdds || []).length > 1 ? "s" : ""}
                       </h1>
                     </div>
                     <div className="search-background bg-transparent mb-0">
@@ -346,22 +155,24 @@ const BrowseCategories = () => {
                           <input
                             type="text"
                             className="
-                    form-control
-                    input-lg
-                    border-end-0
-                    br-be-0 br-te-0
-                  "
+                                form-control
+                                input-lg
+                                border-end-0
+                                br-be-0 br-te-0
+                            "
                             id="text"
+                            name="title"
                             placeholder="What are you looking for?"
+                            onChange={handleInput}
                           />
                         </div>
                         <div className="col-xl-2 col-lg-3 col-md-12 mb-0">
-                          <a
-                            href="#"
+                          <button
                             className="btn btn-lg btn-block btn-primary br-bs-0 br-ts-0"
+                            onClick={hanldeSearch}
                           >
                             Search
-                          </a>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -383,7 +194,7 @@ const BrowseCategories = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  Browse Categories
+                  My Products
                 </li>
               </ol>
             </div>
@@ -415,7 +226,7 @@ const BrowseCategories = () => {
                                 value={searchModal.cat}
                                 onChange={handleInput}
                               >
-                                <option value={0}>Select Category</option>
+                                <option value="">Select Category</option>
                                 {categoryList.map((items) => {
                                   return (
                                     <option value={items.name} key={items.id}>
@@ -432,7 +243,7 @@ const BrowseCategories = () => {
                                 value={searchModal.loc}
                                 onChange={handleInput}
                               >
-                                <option value={0}>Select Location</option>
+                                <option value="">Select Location</option>
                                 {locationList.map((items, i) => {
                                   return (
                                     <option value={items} key={i}>
@@ -475,9 +286,21 @@ const BrowseCategories = () => {
                                       <div className="item-card9-icons">
                                         <a
                                           href="#"
+                                          onClick={(e) =>
+                                            handleEditAdd(e, items)
+                                          }
                                           className="item-card9-icons1 wishlist"
                                         >
-                                          <i className="fa fa fa-heart-o" />
+                                          <i className="fa fa fa-edit" />
+                                        </a>
+                                        <a
+                                          href="#"
+                                          onClick={(e) =>
+                                            handleDeleteAdd(e, items)
+                                          }
+                                          className="item-card9-icons1 wishlist"
+                                        >
+                                          <i className="fa fa fa-trash" />
                                         </a>
                                       </div>
                                     </div>
@@ -498,13 +321,13 @@ const BrowseCategories = () => {
                                           </h4>
                                         </a>
                                         <p>{items.description}</p>
-                                        <ul className="item-cards7-ic mb-0 ">
+                                        <ul className="item-cards7-ic mb-0">
                                           <li>
                                             <i className="icon icon-location-pin text-muted me-1" />
                                             {items.location}
                                           </li>
-
-                                          <li className="d-flex">
+                                        
+                                          <li style={{ width: "100%" }}>
                                             <i className="icon icon-phone text-muted me-1" />{" "}
                                             {items.phonenumber}
                                           </li>
@@ -581,11 +404,23 @@ const BrowseCategories = () => {
       </div>
     </React.Fragment>
   );
+  const editAdPage = (
+    <PostAdd
+      editData={editAd}
+      handleCloseEditAdd={handleCloseEditAdd}
+      handleUpdatePost={handleUpdatePost}
+    />
+  );
   const product = <Product seletedAdd={seletedAdd} />;
+
   if (CurrentPageKey === 100) {
-    return <React.Fragment>{browseCategory}</React.Fragment>;
+    if (!openEditAd) {
+      return <React.Fragment>{browseCategory}</React.Fragment>;
+    } else {
+      return <React.Fragment>{editAdPage}</React.Fragment>;
+    }
   } else if (CurrentPageKey === 101) {
     return <React.Fragment>{product}</React.Fragment>;
   }
 };
-export default BrowseCategories;
+export default MyAds;

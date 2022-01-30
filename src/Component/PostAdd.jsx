@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { callApi } from "../Utitlies/callAPI";
 import { mapStateToProps, mapDispatchToProps } from "./Action/Action";
 import { connect } from "react-redux";
-import axios from "axios";
 
 class PostAdd extends Component {
   constructor(props) {
@@ -10,16 +9,15 @@ class PostAdd extends Component {
     this.saveModal = {
       sellerid: this.props.userInfoData._id,
       sellername: this.props.userInfoData.name,
-      title: "",
-      category: "",
-      price: "",
-      tag: "",
-      mainimg: "",
-      address: "",
-      location: "",
-      phonenumber: "",
-      premium: false,
-      description: "",
+      title: (this.props.editData || {}).title || "",
+      category: (this.props.editData || {}).category || "",
+      price: (this.props.editData || {}).price || "",
+      tag: (this.props.editData || {}).tag || "",
+      mainimg: (this.props.editData || {}).mainimg || "",
+      address: (this.props.editData || {}).address || "",
+      location: (this.props.editData || {}).location || "",
+      phonenumber: (this.props.editData || {}).phonenumber || "",
+      description: (this.props.editData || {}).description || "",
     };
 
     this.state = {
@@ -313,7 +311,8 @@ class PostAdd extends Component {
   }
   render() {
     const { categoryList, saveModal, locationList } = this.state;
-    console.log("ssssss", this.props.userInfoData);
+    const { editData, handleCloseEditAdd, handleUpdatePost } = this.props;
+    console.log("editData", editData);
     return (
       <React.Fragment>
         {/*Sliders Section*/}
@@ -325,7 +324,7 @@ class PostAdd extends Component {
             <div className="header-text mb-0">
               <div className="container">
                 <div className="text-center text-white">
-                  <h1>Ad Post</h1>
+                  <h1>{editData ? "Edit Post" : "Ad Post"}</h1>
                 </div>
               </div>
             </div>
@@ -543,13 +542,30 @@ class PostAdd extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="card-footer">
-                    <button
-                      className="btn btn-success"
-                      onClick={this.handlePostAdd}
-                    >
-                      Submit Now
-                    </button>
+                  <div className="card-footer text-center">
+                    {editData ? (
+                      <>
+                        <button
+                          className="btn btn-success"
+                          onClick={()=>handleUpdatePost(saveModal)}
+                        >
+                          Update Post
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={handleCloseEditAdd}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className="btn btn-success"
+                        onClick={this.handlePostAdd}
+                      >
+                        Submit Now
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

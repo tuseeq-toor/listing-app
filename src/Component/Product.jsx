@@ -1,6 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { callApi } from "../Utitlies/callAPI";
+import Swal from "sweetalert2";
 
-export default function Product() {
+export default function Product(props) {
+  const { seletedAdd } = props;
+  const createdData = seletedAdd.createdAt.split("T");
+  const [review, setReview] = useState([]);
+  const [saveModalReview, setSaveModalReview] = useState({
+    name: "",
+    adid: (seletedAdd || {})._id || null,
+    reviewbody: "",
+    rating: "",
+  });
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setSaveModalReview({
+      ...saveModalReview,
+      [name]: value,
+    });
+  };
+
+  const hanldePostReview = async () => {
+    const postReview = await callApi(
+      `/review/ad/${seletedAdd._id}`,
+      "post",
+      saveModalReview
+    );
+    if (postReview) {
+      Swal.fire("Review Added", "", "success");
+      getReview();
+    }
+  };
+
+  useEffect(() => {
+    getReview();
+  }, []);
+  const getReview = async () => {
+    const reviewForAdd = await callApi(`/review/ad/${seletedAdd._id}`, "get");
+    setReview(reviewForAdd);
+  };
   return (
     <div>
       <div>
@@ -20,27 +58,6 @@ export default function Product() {
                         Product Available
                       </h1>
                     </div>
-                    <div className="search-background">
-                      <div className="form row g-0">
-                        <div className="form-group col-xl-10 col-lg-9 col-md-12 mb-0">
-                          <input
-                            type="text"
-                            className="form-control input-lg border-end-0"
-                            id="text"
-                            placeholder="Search Products"
-                          />
-                        </div>
-                        <div className="col-xl-2 col-lg-3 col-md-12 mb-0">
-                          <a
-                            href="#"
-                            style={{ backgroundColor: "#fceb42" }}
-                            className="btn btn-lg btn-block br-bs-0 br-ts-0"
-                          >
-                            Search
-                          </a>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -53,7 +70,7 @@ export default function Product() {
         <div className="bg-white border-bottom">
           <div className="container">
             <div className="page-header">
-              <h4 className="page-title">Electronics</h4>
+              <h4 className="page-title">{seletedAdd.category}</h4>
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
                   <a href="index.html">Home</a>
@@ -62,7 +79,7 @@ export default function Product() {
                   <a href="categories.html">Categories</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  Electronics
+                  {seletedAdd.category}
                 </li>
               </ol>
             </div>
@@ -89,17 +106,22 @@ export default function Product() {
                       <div className>
                         <a href="userprofile.html" className="text-dark">
                           <h4 className="mt-3 mb-1 font-weight-semibold">
-                            Robert McLean
+                            {seletedAdd.sellername}
                           </h4>
                         </a>
-                        <span className="text-muted">
-                          Member Since November 2008
-                        </span>
-                        <h6 className="mt-2 mb-0">
-                          <a href="#" className="btn btn-primary btn-sm">
-                            See All Ads
-                          </a>
-                        </h6>
+                        <div className="mt-3">
+                          <span className="text-muted">
+                            Posted Date:{" "}
+                            <strong>
+                              {createdData[0] ? createdData[0] : ""}
+                            </strong>
+                            <br />
+                            Posted Time:{" "}
+                            <strong>
+                              {createdData[1] ? createdData[1].slice(0, 5) : ""}
+                            </strong>
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -108,44 +130,13 @@ export default function Product() {
                     <div>
                       <h6>
                         <span className="font-weight-semibold">
-                          <i className="fa fa-envelope me-3 mb-2" />
-                        </span>
-                        <a href="#" className="text-body">
-                          {" "}
-                          robert123@gmail.com
-                        </a>
-                      </h6>
-                      <h6>
-                        <span className="font-weight-semibold">
                           <i className="fa fa-phone me-3 mb-2" />
                         </span>
                         <a href="#" className="text-primary">
                           {" "}
-                          0-235-657-24587
+                          {seletedAdd.phonenumber}
                         </a>
                       </h6>
-                      <h6>
-                        <span className="font-weight-semibold">
-                          <i className="fa fa-link me-3" />
-                        </span>
-                        <a href="#" className="text-primary">
-                          http://spruko.com/
-                        </a>
-                      </h6>
-                    </div>
-                    <div className="item-user-icons mt-4">
-                      <a href="#" className="facebook-bg mt-0">
-                        <i className="fa fa-facebook" />
-                      </a>
-                      <a href="#" className="twitter-bg">
-                        <i className="fa fa-twitter" />
-                      </a>
-                      <a href="#" className="google-bg">
-                        <i className="fa fa-google" />
-                      </a>
-                      <a href="#" className="dribbble-bg">
-                        <i className="fa fa-dribbble" />
-                      </a>
                     </div>
                   </div>
                   {/* <div class="card-footer">
@@ -250,326 +241,18 @@ export default function Product() {
                 </div>
               </div>
             </div> */}
-                <div className="card">
-                  <div className="card-header">
-                    <h3 className="card-title">Latest Products</h3>
-                  </div>
-                  <div className="card-body">
-                    <ul className="vertical-scroll">
-                      <li className="news-item">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img
-                                  src="../assets/images/products/1.png"
-                                  alt="image"
-                                  className="w-8 border"
-                                />
-                              </td>
-                              <td>
-                                <h5 className="mb-1">Best New Model Watch</h5>
-                                <a href="#" className="btn-link">
-                                  View Details
-                                </a>
-                                <span className="float-end font-weight-bold">
-                                  $17
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </li>
-                      <li className="news-item">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img
-                                  src="../assets/images/products/2.png"
-                                  alt="image"
-                                  className="w-8 border"
-                                />
-                              </td>
-                              <td>
-                                <h5 className="mb-1">
-                                  Trending New Model Watches
-                                </h5>
-                                <a href="#" className="btn-link">
-                                  View Details
-                                </a>
-                                <span className="float-end font-weight-bold">
-                                  $17
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </li>
-                      <li className="news-item">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img
-                                  src="../assets/images/products/3.png"
-                                  alt="image"
-                                  className="w-8 border"
-                                />
-                              </td>
-                              <td>
-                                <h5 className="mb-1">Best New Model Watch</h5>
-                                <a href="#" className="btn-link">
-                                  View Details
-                                </a>
-                                <span className="float-end font-weight-bold">
-                                  $17
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </li>
-                      <li className="news-item">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img
-                                  src="../assets/images/products/4.png"
-                                  alt="image"
-                                  className="w-8 border"
-                                />
-                              </td>
-                              <td>
-                                <h5 className="mb-1">
-                                  Trending New Model Watches
-                                </h5>
-                                <a href="#" className="btn-link">
-                                  View Details
-                                </a>
-                                <span className="float-end font-weight-bold">
-                                  $17
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </li>
-                      <li className="news-item">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img
-                                  src="../assets/images/products/5.png"
-                                  alt="image"
-                                  className="w-8 border"
-                                />
-                              </td>
-                              <td>
-                                <h5 className="mb-1">Best New Model Watch</h5>
-                                <a href="#" className="btn-link">
-                                  View Details
-                                </a>
-                                <span className="float-end font-weight-bold">
-                                  $17
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </li>
-                      <li className="news-item">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img
-                                  src="../assets/images/products/6.png"
-                                  alt="image"
-                                  className="w-8 border"
-                                />
-                              </td>
-                              <td>
-                                <h5 className="mb-1">Best New Model Shoes</h5>
-                                <a href="#" className="btn-link">
-                                  View Details
-                                </a>
-                                <span className="float-end font-weight-bold">
-                                  $17
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </li>
-                      <li className="news-item">
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img
-                                  src="../assets/images/products/7.png"
-                                  alt="image"
-                                  className="w-8 border"
-                                />
-                              </td>
-                              <td>
-                                <h5 className="mb-1">
-                                  Trending New Model Shoes
-                                </h5>
-                                <a href="#" className="btn-link">
-                                  View Details
-                                </a>
-                                <span className="float-end font-weight-bold">
-                                  $17
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="card mb-lg-0">
-                  <div className="card-header">
-                    <h3 className="card-title">Latest Seller Ads</h3>
-                  </div>
-                  <div className="card-body">
-                    <div className="rated-products">
-                      <ul className="vertical-scroll">
-                        <li className="item">
-                          <div className="media m-0 mt-0 p-5">
-                            <img
-                              className="me-4"
-                              src="../assets/images/products/toys.png"
-                              alt="img"
-                            />
-                            <div className="media-body">
-                              <h4 className="mt-2 mb-1">Kids Toys</h4>
-                              <span className="rated-products-ratings">
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                              </span>
-                              <div className="h5 mb-0 font-weight-semibold mt-1">
-                                $17 - $29
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="item">
-                          <div className="media p-5 mt-0">
-                            <img
-                              className="me-4"
-                              src="../assets/images/products/1.png"
-                              alt="img"
-                            />
-                            <div className="media-body">
-                              <h4 className="mt-2 mb-1">Leather Watch</h4>
-                              <span className="rated-products-ratings">
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star-o text-warning"> </i>
-                              </span>
-                              <div className="h5 mb-0 font-weight-semibold mt-1">
-                                $22 - $45
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="item">
-                          <div className="media p-5 mt-0">
-                            <img
-                              className="me-4"
-                              src="../assets/images/products/4.png"
-                              alt="img"
-                            />
-                            <div className="media-body">
-                              <h4 className="mt-2 mb-1">Digital Watch</h4>
-                              <span className="rated-products-ratings">
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star-half-o text-warning">
-                                  {" "}
-                                </i>
-                              </span>
-                              <div className="h5 mb-0 font-weight-semibold mt-1">
-                                $35 - $72
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="item">
-                          <div className="media p-5 mt-0">
-                            <img
-                              className="me-4"
-                              src="../assets/images/products/6.png"
-                              alt="img"
-                            />
-                            <div className="media-body">
-                              <h4 className="mt-2 mb-1">Sports Shoe</h4>
-                              <span className="rated-products-ratings">
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star-half-o text-warning">
-                                  {" "}
-                                </i>
-                                <i className="fa fa-star-o text-warning"> </i>
-                              </span>
-                              <div className="h5 mb-0 font-weight-semibold mt-1">
-                                $12 - $21
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="item">
-                          <div className="media mb-0 p-5 mt-0">
-                            <img
-                              className="me-4"
-                              src="../assets/images/products/8.png"
-                              alt="img"
-                            />
-                            <div className="media-body">
-                              <h4 className="mt-2 mb-1">Ladies shoes</h4>
-                              <span className="rated-products-ratings">
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star text-warning"> </i>
-                                <i className="fa fa-star-o text-warning"> </i>
-                                <i className="fa fa-star-o text-warning"> </i>
-                              </span>
-                              <div className="h5 mb-0 font-weight-semibold mt-1">
-                                $89 - $97
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
               </div>
               {/*Right Side Content*/}
               <div className="col-xl-8 col-lg-8 col-md-12">
                 {/*Classified Description*/}
                 <div className="card overflow-hidden">
-                  <div className="ribbon ribbon-top-right text-danger">
+                  {/* <div className="ribbon ribbon-top-right text-danger">
                     <span className="bg-danger">featured</span>
-                  </div>
+                  </div> */}
                   <div className="card-body h-100">
                     <div className="item-det mb-4">
                       <a href="#" className="text-dark">
-                        <h3>Maruti Suzuki Alto</h3>
+                        <h3>{seletedAdd.title}</h3>
                       </a>
                       <div className="d-flex">
                         <ul className="d-flex mb-0">
@@ -585,34 +268,7 @@ export default function Product() {
                               USA
                             </a>
                           </li>
-                          <li className="me-5">
-                            <a href="#" className="icons">
-                              <i className="icon icon-calendar text-muted me-1" />{" "}
-                              5 hours ago
-                            </a>
-                          </li>
-                          <li className="me-5">
-                            <a href="#" className="icons">
-                              <i className="icon icon-eye text-muted me-1" />{" "}
-                              765
-                            </a>
-                          </li>
                         </ul>
-                        <div className="d-inline-flex me-5">
-                          <div
-                            className="rating-star sm my-rating-5 me-2"
-                            data-rating={4}
-                          />
-                          4.0
-                        </div>
-                        <div className="rating-star d-flex">
-                          <div className="me-2">
-                            <div className="rating-star sm">
-                              <i className="fa fa-heart text-danger" />
-                            </div>
-                          </div>
-                          135
-                        </div>
                       </div>
                     </div>
                     <div className="product-slider carousel-slide-2">
@@ -623,7 +279,9 @@ export default function Product() {
                         data-bs-loop="false"
                         data-bs-thumb="true"
                       >
-                        <div className="arrow-ribbon2 bg-primary">$539</div>
+                        <div className="arrow-ribbon2 bg-primary">
+                          {seletedAdd.price}
+                        </div>
                         <div
                           className="carousel-inner slide-show-image"
                           id="full-gallery"
@@ -722,914 +380,67 @@ export default function Product() {
                     <h3 className="card-title">Description</h3>
                   </div>
                   <div className="card-body">
-                    <div className="mb-4">
-                      <p>
-                        At vero eos et accusamus et iusto odio dignissimos
-                        ducimus qui blanditiis praesentium voluptatum deleniti
-                        atcorrupti quos dolores et quas molestias excepturi sint
-                        occaecati cupiditate non provident, similique sunt in
-                        culpa qui officia deserunt mollitia animi, id est
-                        laborum et dolorum fuga.
-                      </p>
-                      <p>
-                        On the other hand, we denounce with righteous
-                        indignation and dislike men who are so beguiled and
-                        demoraliz the charms of pleasure of the moment, so
-                        blinded by desire, that they cannot foresee the pain and
-                        trouble thena bound to ensue; and equal blame belongs to
-                        those who fail in their duty through weakness of will,
-                        which is the same as saying through shrinking from toil
-                        and pain.
-                      </p>
-                    </div>
-                    <h4 className="mb-4">Specifications</h4>
-                    <div className="row">
-                      <div className="col-xl-12 col-md-12">
-                        <div className="table-responsive">
-                          <table className="table row table-borderless w-100 m-0 text-nowrap">
-                            <tbody className="col-lg-12 col-xl-6 p-0">
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Fuel Type :
-                                  </span>
-                                  Diesel
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Breaks :
-                                  </span>
-                                  Front , Rear
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Seating :
-                                  </span>{" "}
-                                  5 members
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Colors :
-                                  </span>{" "}
-                                  Red , pink, Gray
-                                </td>
-                              </tr>
-                            </tbody>
-                            <tbody className="col-lg-12 col-xl-6 p-0">
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Air Bags :
-                                  </span>
-                                  Available
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Colors :
-                                  </span>{" "}
-                                  Red , pink, Gray
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Engine :
-                                  </span>{" "}
-                                  F8D
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <span className="font-weight-bold">
-                                    Power Windows :
-                                  </span>
-                                  Available
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+                    <div className="mb-4">{seletedAdd.description}</div>
                   </div>
                   <div className="pt-4 pb-4 px-5 border-top border-top">
                     <div className="list-id">
                       <div className="row">
-                        <div className="col">
-                          <a className="mb-0">Classified ID : #8256358</a>
-                        </div>
                         <div className="col col-auto">
-                          Posted By
-                          <a className="mb-0 font-weight-bold">Individual</a> /
-                          21st Dec 2018
+                          Posted By {seletedAdd.sellername} / {"   "}
+                          {(createdData || "")[0]}
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="card-footer">
-                    <div className="icons">
-                      <a href="#" className="btn btn-info icons">
-                        <i className="icon icon-share me-1" /> Share Ad
-                      </a>
-                      <a href="#" className="btn btn-primary icons">
-                        <i className="icon icon-heart me-1" /> 678
-                      </a>
-                      <a href="#" className="btn btn-secondary icons">
-                        <i className="icon icon-printer me-1" /> Print
-                      </a>
                     </div>
                   </div>
                 </div>
                 {/*Classified Description*/}
-                <h3 className="mb-5 mt-4">Related Posts</h3>
-                {/*Related Posts*/}
-                <div
-                  id="myCarousel5"
-                  className="owl-carousel owl-carousel-icons3"
-                >
-                  {/* Wrapper for carousel items */}
-                  <div className="item">
-                    <div className="card">
-                      <div className="ribbon ribbon-top-left text-danger">
-                        <span className="bg-danger">Negotiable</span>
-                      </div>
-                      <div className="item-card7-imgs">
-                        <a href="classified.html" />
-                        <img
-                          src="../assets/images/products/products/ed1.jpg"
-                          alt="img"
-                          className="cover-image"
-                        />
-                      </div>
-                      <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
-                          {" "}
-                          Education
-                        </a>
-                        <h4 className="font-weight-semibold mb-0">$389</h4>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="classified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">
-                              Record Writing
-                            </h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="card">
-                      <div className="ribbon ribbon-top-left text-primary">
-                        <span className="bg-primary">featured</span>
-                      </div>
-                      <div className="item-card7-imgs">
-                        <a href="classified.html" />
-                        <img
-                          src="../assets/images/products/products/v1.jpg"
-                          alt="img"
-                          className="cover-image"
-                        />
-                      </div>
-                      <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
-                          {" "}
-                          Cars
-                        </a>
-                        <h4 className="mb-0">$854</h4>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="classified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">
-                              Geep Automobiles
-                            </h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="card">
-                      <div className="item-card7-img">
-                        <div className="item-card7-imgs">
-                          <a href="classified.html" />
-                          <img
-                            src="../assets/images/products/products/j1.jpg"
-                            alt="img"
-                            className="cover-image"
-                          />
-                        </div>
-                        <div className="item-card7-overlaytext">
-                          <a href="classified.html" className="text-white">
-                            Furniture
-                          </a>
-                          <h4 className="font-weight-semibold mb-0">$786</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="classified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">
-                              Marketing Executive
-                            </h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="card">
-                      <div className="ribbon ribbon-top-left text-danger">
-                        <span className="bg-danger">Collection</span>
-                      </div>
-                      <div className="item-card7-img">
-                        <div className="item-card7-imgs">
-                          <a href="classified.html" />
-                          <img
-                            src="../assets/images/products/products/f4.jpg"
-                            alt="img"
-                            className="cover-image"
-                          />
-                        </div>
-                        <div className="item-card7-overlaytext">
-                          <a href="classified.html" className="text-white">
-                            Restaurant
-                          </a>
-                          <h4 className="font-weight-semibold mb-0">$539</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="rclassified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">
-                              Houge Restaurant
-                            </h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="card">
-                      <div className="item-card7-img">
-                        <div className="item-card7-imgs">
-                          <a href="classified.html" />
-                          <img
-                            src="../assets/images/products/products/pe1.jpg"
-                            alt="img"
-                            className="cover-image"
-                          />
-                        </div>
-                        <div className="item-card7-overlaytext">
-                          <a href="classified.html" className="text-white">
-                            Pets &amp; Animals
-                          </a>
-                          <h4 className="font-weight-semibold mb-0">$925</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="classified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">
-                              Care Brohzm
-                            </h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="card">
-                      <div className="ribbon ribbon-top-left text-success">
-                        <span className="bg-success">Free Shipping</span>
-                      </div>
-                      <div className="item-card7-img">
-                        <div className="item-card7-imgs">
-                          <a href="classified.html" />
-                          <img
-                            src="../assets/images/products/products/h5.jpg"
-                            alt="img"
-                            className="cover-image"
-                          />
-                        </div>
-                        <div className="item-card7-overlaytext">
-                          <a href="classified.html" className="text-white">
-                            {" "}
-                            Homes
-                          </a>
-                          <h4 className="font-weight-semibold mb-0">$925</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="classified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">
-                              Single Flat House
-                            </h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="card">
-                      <div className="item-card7-img">
-                        <div className="item-card7-imgs">
-                          <a href="classified.html" />
-                          <img
-                            src="../assets/images/products/products/ed2.jpg"
-                            alt="img"
-                            className="cover-image"
-                          />
-                        </div>
-                        <div className="item-card7-overlaytext">
-                          <a href="classified.html" className="text-white">
-                            Education
-                          </a>
-                          <h4 className="font-weight-semibold mb-0">$378</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="classified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">
-                              Digital Marketing Training
-                            </h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="card">
-                      <div className="ribbon ribbon-top-left text-primary">
-                        <span className="bg-primary">featured</span>
-                      </div>
-                      <div className="item-card7-img">
-                        <div className="item-card7-imgs">
-                          <a href="classified.html" />
-                          <img
-                            src="../assets/images/products/products/j3.jpg"
-                            alt="img"
-                            className="cover-image"
-                          />
-                        </div>
-                        <div className="item-card7-overlaytext">
-                          <a href="classified.html" className="text-white">
-                            Spa
-                          </a>
-                          <h4 className="font-weight-semibold mb-0">$836</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <div className="item-card7-desc">
-                          <a href="classified.html" className="text-dark">
-                            <h4 className="font-weight-semibold">Designers</h4>
-                          </a>
-                        </div>
-                        <div className="item-card7-text">
-                          <ul className="icon-card mb-0">
-                            <li className>
-                              <a href="#" className="icons">
-                                <i className="icon icon-location-pin text-muted me-1" />
-                                Los Angles
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" className="icons">
-                                <i className="icon icon-event text-muted me-1" />{" "}
-                                5 hours ago
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-user text-muted me-1" />
-                                Sally Peake
-                              </a>
-                            </li>
-                            <li className="mb-0">
-                              <a href="#" className="icons">
-                                <i className="icon icon-phone text-muted me-1" />
-                                5-67987608
-                              </a>
-                            </li>
-                          </ul>
-                          <p className="mb-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem....
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
                 {/*/Related Posts*/}
                 {/*Comments*/}
                 <div className="card">
                   <div className="card-header">
-                    <h3 className="card-title">Rating And Reviews</h3>
+                    <h3 className="card-title">Reviews</h3>
                   </div>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="mb-4">
-                          <p className="mb-2">
-                            <span className="fs-14 ms-2">
-                              <i className="fa fa-star text-yellow me-2" />5
-                            </span>
-                          </p>
-                          <div className="progress progress-md mb-4 h-4">
-                            <div
-                              className="progress-bar bg-success"
-                              style={{ width: "100%" }}
-                            >
-                              9,232
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mb-4">
-                          <p className="mb-2">
-                            <span className="fs-14 ms-2">
-                              <i className="fa fa-star text-yellow me-2" />4
-                            </span>
-                          </p>
-                          <div className="progress progress-md mb-4 h-4">
-                            <div
-                              className="progress-bar bg-info"
-                              style={{ width: "80%" }}
-                            >
-                              8,125
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mb-4">
-                          <p className="mb-2">
-                            <span className="fs-14 ms-2">
-                              <i className="fa fa-star text-yellow me-2" /> 3
-                            </span>
-                          </p>
-                          <div className="progress progress-md mb-4 h-4">
-                            <div
-                              className="progress-bar bg-primary"
-                              style={{ width: "60%" }}
-                            >
-                              6,263
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mb-4">
-                          <p className="mb-2">
-                            <span className="fs-14 ms-2">
-                              <i className="fa fa-star text-yellow me-2" /> 2
-                            </span>
-                          </p>
-                          <div className="progress progress-md mb-4 h-4">
-                            <div
-                              className="progress-bar bg-secondary"
-                              style={{ width: "30%" }}
-                            >
-                              3,463
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mb-5">
-                          <p className="mb-2">
-                            <span className="fs-14 ms-2">
-                              <i className="fa fa-star text-yellow me-2" /> 1
-                            </span>
-                          </p>
-                          <div className="progress progress-md mb-4 h-4">
-                            <div
-                              className="progress-bar bg-orange"
-                              style={{ width: "20%" }}
-                            >
-                              1,456
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="card-body p-0">
-                    <div className="media mt-0 p-5">
-                      <div className="d-flex me-3">
-                        <a href="#">
-                          <img
-                            className="media-object brround"
-                            alt="64x64"
-                            src="../assets/images/faces/male/1.jpg"
-                          />
-                        </a>
-                      </div>
-                      <div className="media-body">
-                        <h5 className="mt-0 mb-1 font-weight-semibold">
-                          Joanne Scott
-                          <span
-                            className="fs-14 ms-0"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="top"
-                            title="verified"
-                          >
-                            <i className="fa fa-check-circle-o text-success" />
-                          </span>
-                          <span className="fs-14 ms-2">
-                            4.5 <i className="fa fa-star text-yellow" />
-                          </span>
-                        </h5>
-                        <small className="text-muted">
-                          <span>
-                            <i className="fa fa-calendar" /> Dec 21st
-                          </span>
-                          <span>
-                            <i className="ms-3 fa fa-clock-o" /> 13.00{" "}
-                          </span>
-                          <span>
-                            <i className="ms-3 fa fa-map-marker" /> Brezil
-                          </span>
-                        </small>
-                        <p className="font-13 mb-2 mt-2">
-                          Ut enim ad minim veniam, quis Neque porro quisquam
-                          est, qui dolorem ipsum quia dolor sit amet,
-                          consectetur, adipisci velit, sed quia non numquam eius
-                          modi tempora incidunt ut labore et nostrud
-                          exercitation ullamco laboris commodo consequat.
-                        </p>
-                        <a href="#" className="me-2">
-                          <span className="badge badge-primary">Helpful</span>
-                        </a>
-                        <a
-                          href
-                          className="me-2"
-                          data-bs-toggle="modal"
-                          data-bs-target="#Comment"
-                        >
-                          <span className>Comment</span>
-                        </a>
-                        <a
-                          href
-                          className="me-2"
-                          data-bs-toggle="modal"
-                          data-bs-target="#report"
-                        >
-                          <span className>Report</span>
-                        </a>
-                        <div className="media mt-5">
+                  {(review || []).map((items) => {
+                    return (
+                      <div className="card-body p-0">
+                        <div className="media p-5 border-top mt-0">
                           <div className="d-flex me-3">
                             <a href="#">
                               <img
                                 className="media-object brround"
                                 alt="64x64"
-                                src="../assets/images/faces/female/2.jpg"
+                                src="../assets/images/faces/male/3.jpg"
                               />
                             </a>
                           </div>
+
                           <div className="media-body">
                             <h5 className="mt-0 mb-1 font-weight-semibold">
-                              Rose Slater
-                              <span
-                                className="fs-14 ms-0"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="verified"
-                              >
-                                <i className="fa fa-check-circle-o text-success" />
-                              </span>
+                              {items.name}
                             </h5>
                             <small className="text-muted">
                               <span>
-                                <i className="fa fa-calendar" /> Dec 22nd{" "}
+                                <i className="fa fa-calendar" /> {items.createdAt.split("T")[0]}
                               </span>
                               <span>
-                                <i className="ms-3 fa fa-clock-o" /> 6.00{" "}
+                                <i className="ms-3 fa fa-clock-o" /> {items.createdAt.split("T")[1].slice(0,5)}
                               </span>
-                              <span>
-                                <i className="ms-3 fa fa-map-marker" /> Brezil
-                              </span>
+                             
                             </small>
                             <p className="font-13 mb-2 mt-2">
-                              Ut enim ad minim veniam, quis nostrud exercitation
-                              ullamco laboris commodo Ut enim ad minima veniam,
-                              quis nostrum exercitationem ullam corporis
-                              suscipit laboriosam, nisi ut aliquid ex ea commodi
-                              consequatur consequat.
+                              {items.reviewbody}
                             </p>
-                            <a
-                              href
-                              data-bs-toggle="modal"
-                              data-bs-target="#Comment"
-                            >
-                              <span className="badge badge-default">
-                                Comment
-                              </span>
-                            </a>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="media p-5 border-top mt-0">
-                      <div className="d-flex me-3">
-                        <a href="#">
-                          <img
-                            className="media-object brround"
-                            alt="64x64"
-                            src="../assets/images/faces/male/3.jpg"
-                          />
-                        </a>
-                      </div>
-                      <div className="media-body">
-                        <h5 className="mt-0 mb-1 font-weight-semibold">
-                          Edward
-                          <span
-                            className="fs-14 ms-0"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="top"
-                            title="verified"
-                          >
-                            <i className="fa fa-check-circle-o text-success" />
-                          </span>
-                          <span className="fs-14 ms-2">
-                            4 <i className="fa fa-star text-yellow" />
-                          </span>
-                        </h5>
-                        <small className="text-muted">
-                          <span>
-                            <i className="fa fa-calendar" /> Dec 21st
-                          </span>
-                          <span>
-                            <i className="ms-3 fa fa-clock-o" /> 16.35
-                          </span>
-                          <span>
-                            <i className="ms-3 fa fa-map-marker" /> UK
-                          </span>
-                        </small>
-                        <p className="font-13 mb-2 mt-2">
-                          Ut enim ad minim veniam, quis Neque porro quisquam
-                          est, qui dolorem ipsum quia dolor sit amet,
-                          consectetur, adipisci velit, sed quia non numquam eius
-                          modi tempora incidunt ut labore et nostrud
-                          exercitation ullamco laboris commodo consequat.
-                        </p>
-                        <a href="#" className="me-2">
-                          <span className="badge badge-primary">Helpful</span>
-                        </a>
-                        <a
-                          href
-                          className="me-2"
-                          data-bs-toggle="modal"
-                          data-bs-target="#Comment"
-                        >
-                          <span className>Comment</span>
-                        </a>
-                        <a
-                          href
-                          className="me-2"
-                          data-bs-toggle="modal"
-                          data-bs-target="#report"
-                        >
-                          <span className>Report</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
                 {/*/Comments*/}
                 <div className="card mb-0">
                   <div className="card-header">
-                    <h3 className="card-title">Leave a reply</h3>
+                    <h3 className="card-title">Add Review</h3>
                   </div>
                   <div className="card-body">
                     <div>
@@ -1639,28 +450,30 @@ export default function Product() {
                           className="form-control"
                           id="name1"
                           placeholder="Your Name"
+                          value={saveModalReview.name}
+                          name="name"
+                          onChange={handleInput}
                         />
                       </div>
-                      <div className="form-group">
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="email"
-                          placeholder="Email Address"
-                        />
-                      </div>
+
                       <div className="form-group">
                         <textarea
                           className="form-control"
                           name="example-textarea-input"
                           rows={6}
-                          placeholder="Comment"
+                          placeholder="Your Review"
                           defaultValue={""}
+                          value={saveModalReview.reviewbody}
+                          name="reviewbody"
+                          onChange={handleInput}
                         />
                       </div>
-                      <a href="#" className="btn btn-primary">
-                        Send Reply
-                      </a>
+                      <button
+                        onClick={hanldePostReview}
+                        className="btn btn-primary"
+                      >
+                        Add Review
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1668,43 +481,6 @@ export default function Product() {
             </div>
           </div>
         </section>
-        {/* Newsletter*/}
-        <section className="sptb bg-white border-top">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-7 col-xl-6 col-md-12">
-                <div className="sub-newsletter">
-                  <h3 className="mb-2">
-                    <i className="fa fa-paper-plane-o me-2" /> Subscribe To Our
-                    Newsletter
-                  </h3>
-                  <p className="mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor
-                  </p>
-                </div>
-              </div>
-              <div className="col-lg-5 col-xl-6 col-md-12">
-                <div className="input-group sub-input mt-1">
-                  <input
-                    type="text"
-                    className="form-control input-lg"
-                    placeholder="Enter your Email"
-                  />
-                  <div className>
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-lg br-ts-0 br-bs-0"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        {/*/Newsletter*/}
       </div>
     </div>
   );
