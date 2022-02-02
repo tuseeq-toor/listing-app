@@ -27,7 +27,8 @@ class Topnavbar extends Component {
     e.preventDefault();
     this.setState({ registerPopup: !this.state.registerPopup });
   };
-  hanldeLogout = async () => {
+  hanldeLogout = async (e) => {
+    e.preventDefault();
     const response = await callApi("/logout", "post");
     if (response) {
       this.props.logIn("");
@@ -48,7 +49,10 @@ class Topnavbar extends Component {
                       <ul className="custom">
                         <li>
                           <a
-                            href="register.html"
+                            onClick={(e) => {
+                              e.preventDefault();
+                            }}
+                            href="#"
                             className="text-dark"
                             onClick={this.hanldeRegisterPop}
                           >
@@ -124,7 +128,11 @@ class Topnavbar extends Component {
                     alt=""
                   />
                 </span>
-                <a href="tel:245-6325-3256" className="callusbtn">
+                <a
+                  href="#"
+                  className="callusbtn"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <i className="fa fa-phone" aria-hidden="true" />
                 </a>
               </div>
@@ -134,7 +142,7 @@ class Topnavbar extends Component {
           <div className="horizontal-main bg-dark-transparent clearfix">
             <div className="horizontal-mainwrapper container clearfix">
               <div className="desktoplogo" style={{ height: "80px" }}>
-                <a href="index.html">
+                <a href="index.html" onClick={(e) => e.preventDefault()}>
                   <img
                     src="../assets/images/brand/newLogo2.png"
                     alt=""
@@ -143,7 +151,7 @@ class Topnavbar extends Component {
                 </a>
               </div>
               <div className="desktoplogo-1" style={{ height: "80px" }}>
-                <a href="index.html">
+                <a href="index.html" onClick={(e) => e.preventDefault()}>
                   <img
                     src="../assets/images/brand/newLogo.png"
                     alt=""
@@ -181,7 +189,7 @@ class Topnavbar extends Component {
                       Browse Categories{" "}
                       <span className="fa fa-caret-down m-0" />
                     </Link>
-                    <ul className="sub-menu">
+                    {/* <ul className="sub-menu">
                       <li aria-haspopup="true">
                         <a href="classified.html">Restaurant</a>
                       </li>
@@ -207,7 +215,7 @@ class Topnavbar extends Component {
                           Sports &amp; Outdoors
                         </a>
                       </li>
-                    </ul>
+                    </ul> */}
                   </li>
                   <li aria-haspopup="true">
                     <Link

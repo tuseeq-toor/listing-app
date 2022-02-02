@@ -357,6 +357,9 @@ const BrowseCategories = () => {
                         </div>
                         <div className="col-xl-2 col-lg-3 col-md-12 mb-0">
                           <a
+                            onClick={(e) => {
+                              e.preventDefault();
+                            }}
                             href="#"
                             className="btn btn-lg btn-block btn-primary br-bs-0 br-ts-0"
                           >
@@ -474,6 +477,9 @@ const BrowseCategories = () => {
                                       </div>
                                       <div className="item-card9-icons">
                                         <a
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                          }}
                                           href="#"
                                           className="item-card9-icons1 wishlist"
                                         >

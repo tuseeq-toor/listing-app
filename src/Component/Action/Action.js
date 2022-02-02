@@ -3,6 +3,7 @@ export const mapStateToProps = (state) => {
     return {
       loginToken: state.logIn.payload,
       userInfoData: state.userInfo.payload,
+      ActiveTab: state.ActiveNav.state,
     };
   };
   export const mapDispatchToProps = (dispatch) => {
@@ -18,6 +19,13 @@ export const mapStateToProps = (state) => {
       userInfo: (payload) => {
         dispatch({
           type: "UserInfo",
+          data: payload,
+        });
+      },
+      // This is for active nav key
+      manageNavKey: (payload) => {
+        dispatch({
+          type: "ActiveNav",
           data: payload,
         });
       },

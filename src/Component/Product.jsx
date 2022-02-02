@@ -73,10 +73,24 @@ export default function Product(props) {
               <h4 className="page-title">{seletedAdd.category}</h4>
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="index.html">Home</a>
+                  <a
+                    href="index.html"
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                  >
+                    Home
+                  </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="categories.html">Categories</a>
+                  <a
+                    href="categories.html"
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                  >
+                    Categories
+                  </a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {seletedAdd.category}
@@ -104,7 +118,13 @@ export default function Product(props) {
                         alt="user"
                       />
                       <div className>
-                        <a href="userprofile.html" className="text-dark">
+                        <a
+                          href="userprofile.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-dark"
+                        >
                           <h4 className="mt-3 mb-1 font-weight-semibold">
                             {seletedAdd.sellername}
                           </h4>
@@ -132,7 +152,13 @@ export default function Product(props) {
                         <span className="font-weight-semibold">
                           <i className="fa fa-phone me-3 mb-2" />
                         </span>
-                        <a href="#" className="text-primary">
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-primary"
+                        >
                           {" "}
                           {seletedAdd.phonenumber}
                         </a>
@@ -251,19 +277,37 @@ export default function Product(props) {
                   </div> */}
                   <div className="card-body h-100">
                     <div className="item-det mb-4">
-                      <a href="#" className="text-dark">
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                        className="text-dark"
+                      >
                         <h3>{seletedAdd.title}</h3>
                       </a>
                       <div className="d-flex">
                         <ul className="d-flex mb-0">
                           <li className="me-5">
-                            <a href="#" className="icons">
+                            <a
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="icons"
+                            >
                               <i className="icon icon-briefcase text-muted me-1" />
                               Cars
                             </a>
                           </li>
                           <li className="me-5">
-                            <a href="#" className="icons">
+                            <a
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="icons"
+                            >
                               <i className="icon icon-location-pin text-muted me-1" />
                               USA
                             </a>
@@ -348,6 +392,9 @@ export default function Product(props) {
                           </div>
                           <div className="thumbcarousel">
                             <a
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
                               className="carousel-control-prev"
                               href="#carouselFade"
                               role="button"
@@ -359,6 +406,9 @@ export default function Product(props) {
                               />
                             </a>
                             <a
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
                               className="carousel-control-next"
                               href="#carouselFade"
                               role="button"
@@ -406,7 +456,12 @@ export default function Product(props) {
                       <div className="card-body p-0">
                         <div className="media p-5 border-top mt-0">
                           <div className="d-flex me-3">
-                            <a href="#">
+                            <a
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                            >
                               <img
                                 className="media-object brround"
                                 alt="64x64"
@@ -421,12 +476,13 @@ export default function Product(props) {
                             </h5>
                             <small className="text-muted">
                               <span>
-                                <i className="fa fa-calendar" /> {items.createdAt.split("T")[0]}
+                                <i className="fa fa-calendar" />{" "}
+                                {items.createdAt.split("T")[0]}
                               </span>
                               <span>
-                                <i className="ms-3 fa fa-clock-o" /> {items.createdAt.split("T")[1].slice(0,5)}
+                                <i className="ms-3 fa fa-clock-o" />{" "}
+                                {items.createdAt.split("T")[1].slice(0, 5)}
                               </span>
-                             
                             </small>
                             <p className="font-13 mb-2 mt-2">
                               {items.reviewbody}

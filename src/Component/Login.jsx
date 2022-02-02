@@ -29,18 +29,23 @@ class Login extends Component {
     e.preventDefault();
     const { saveModal } = this.state;
     const data = await callApi("/login", "post", saveModal);
-    const userData = await callApi("/userinfo", "get",null,data.id,data.token);
-    if(data && userData){
-      this.props.close(e)
+    const userData = await callApi(
+      "/userinfo",
+      "get",
+      null,
+      data.id,
+      data.token
+    );
+    if (data && userData) {
+      this.props.close(e);
     }
-    this.props.logIn(data.token)
-    this.props.userInfo(userData)
-   
+    this.props.logIn(data.token);
+    this.props.userInfo(userData);
   };
   render() {
     const { saveModal } = this.state;
-    const { open, close} = this.props;
-    console.log("loginToken",this.props.loginToken)
+    const { open, close } = this.props;
+    console.log("loginToken", this.props.loginToken);
     return (
       <Modal isOpen={open} size="lg">
         <ModalHeader toggle={close}>Login</ModalHeader>
@@ -75,11 +80,24 @@ class Login extends Component {
                   </button>
                 </div>
                 <p className="mb-2">
-                  <a href="forgot.html">Forgot Password</a>
+                  <a
+                    href="forgot.html"
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                  >
+                    Forgot Password
+                  </a>
                 </p>
                 <p className="text-dark mb-0">
                   Don't have account?
-                  <a href="register.html" className="text-primary ms-1">
+                  <a
+                    href="register.html"
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                    className="text-primary ms-1"
+                  >
                     Sign Up
                   </a>
                 </p>
@@ -89,6 +107,9 @@ class Login extends Component {
                 <div className="text-center">
                   <div className="btn-group">
                     <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                       href="https://www.facebook.com/"
                       className="btn btn-icon me-2 brround"
                     >
@@ -97,6 +118,9 @@ class Login extends Component {
                   </div>
                   <div className="btn-group">
                     <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                       href="https://www.google.com/gmail/"
                       className="btn  me-2 btn-icon brround"
                     >
@@ -105,6 +129,9 @@ class Login extends Component {
                   </div>
                   <div className="btn-group">
                     <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                       href="https://twitter.com/"
                       className="btn  btn-icon brround"
                     >

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   useEffect(() => {
@@ -61,6 +62,9 @@ export default function Home() {
                               btn btn-lg btn-block text-dark
                               br-ts-md-0 br-bs-md-0
                             "
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
                         >
                           Search Here
                         </a>
@@ -98,7 +102,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -125,7 +129,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -152,7 +156,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -179,7 +183,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -206,7 +210,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -233,7 +237,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -260,7 +264,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -287,7 +291,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -314,7 +318,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -341,7 +345,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img text-shadow1">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -368,7 +372,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -395,7 +399,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -422,7 +426,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -449,7 +453,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -476,7 +480,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -503,7 +507,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -530,7 +534,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -557,7 +561,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -584,7 +588,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -611,7 +615,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -638,7 +642,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -665,7 +669,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img text-shadow1">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -692,7 +696,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -719,7 +723,7 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="card-body">
                         <div className="cat-item text-center">
-                          <a href="classifieds-list.html" />
+                          <Link to="browse_categories" />
                           <div className="cat-img">
                             <img
                               src="../assets/images/brand/newLogo1.png"
@@ -784,7 +788,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-primary">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/h3.jpg"
                           alt="img"
@@ -792,7 +801,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           RealEstate
                         </a>
@@ -801,7 +816,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>2Bk Deluxe Flat</h4>
                             </a>
                           </div>
@@ -814,19 +835,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -884,7 +923,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-purple">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/v4.jpg"
                           alt="img"
@@ -892,7 +936,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Vehicle
                         </a>
@@ -901,7 +951,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Gittbo AutoMobiles</h4>
                             </a>
                           </div>
@@ -914,19 +970,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -984,7 +1058,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-success">Open</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/f2.jpg"
                           alt="img"
@@ -992,7 +1071,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Restaurant
                         </a>
@@ -1001,7 +1086,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Chinese Restaurant</h4>
                             </a>
                           </div>
@@ -1014,19 +1105,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 UK
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 1 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1084,7 +1193,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-secondary">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/j3.jpg"
                           alt="img"
@@ -1092,7 +1206,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Beauty
                         </a>
@@ -1101,7 +1221,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text d-flex">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>FrogeBeauty &amp; Spa</h4>
                             </a>
                           </div>
@@ -1114,19 +1240,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1161,6 +1305,9 @@ export default function Home() {
                           <div className="mt-2 footerimg-r ms-auto">
                             <a
                               href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
                               className="text-muted"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
@@ -1184,7 +1331,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-danger">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/b3.jpg"
                           alt="img"
@@ -1192,7 +1344,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Beauty &amp; Spa{" "}
                         </a>
@@ -1201,7 +1359,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Golik Beauty &amp; Spa</h4>
                             </a>
                           </div>
@@ -1214,19 +1378,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1284,7 +1466,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-primary">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/h3.jpg"
                           alt="img"
@@ -1292,7 +1479,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           RealEstate
                         </a>
@@ -1301,7 +1494,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>2Bk Deluxe Flat</h4>
                             </a>
                           </div>
@@ -1314,19 +1513,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1384,7 +1601,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-purple">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/v4.jpg"
                           alt="img"
@@ -1392,7 +1614,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Vehicle
                         </a>
@@ -1401,7 +1629,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Gittbo AutoMobiles</h4>
                             </a>
                           </div>
@@ -1414,19 +1648,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1484,7 +1736,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-success">Open</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/f2.jpg"
                           alt="img"
@@ -1492,7 +1749,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Restaurant
                         </a>
@@ -1501,7 +1764,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Chinese Restaurant</h4>
                             </a>
                           </div>
@@ -1514,19 +1783,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 UK
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 1 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1584,7 +1871,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-secondary">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/j3.jpg"
                           alt="img"
@@ -1592,7 +1884,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Beauty
                         </a>
@@ -1601,7 +1899,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text d-flex">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>FrogeBeauty &amp; Spa</h4>
                             </a>
                           </div>
@@ -1614,19 +1918,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1661,6 +1983,9 @@ export default function Home() {
                           <div className="mt-2 footerimg-r ms-auto">
                             <a
                               href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
                               className="text-muted"
                               data-bs-toggle="tooltip"
                               data-bs-placement="top"
@@ -1684,7 +2009,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-danger">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/b3.jpg"
                           alt="img"
@@ -1692,7 +2022,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Beauty &amp; Spa{" "}
                         </a>
@@ -1701,7 +2037,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Golik Beauty &amp; Spa</h4>
                             </a>
                           </div>
@@ -1714,19 +2056,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1784,7 +2144,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-primary">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/h3.jpg"
                           alt="img"
@@ -1792,7 +2157,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           RealEstate
                         </a>
@@ -1801,7 +2172,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>2Bk Deluxe Flat</h4>
                             </a>
                           </div>
@@ -1814,19 +2191,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1884,7 +2279,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-purple">sale</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/v4.jpg"
                           alt="img"
@@ -1892,7 +2292,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Vehicle
                         </a>
@@ -1901,7 +2307,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Gittbo AutoMobiles</h4>
                             </a>
                           </div>
@@ -1914,19 +2326,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 USA
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 5 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -1984,7 +2414,12 @@ export default function Home() {
                     <div className="card mb-0">
                       <div className="arrow-ribbon bg-success">Open</div>
                       <div className="item-card7-imgs">
-                        <a href="classified.html" />
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        />
                         <img
                           src="../assets/images/products/products/f2.jpg"
                           alt="img"
@@ -1992,7 +2427,13 @@ export default function Home() {
                         />
                       </div>
                       <div className="item-card7-overlaytext">
-                        <a href="classified.html" className="text-white">
+                        <a
+                          href="classified.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="text-white"
+                        >
                           {" "}
                           Restaurant
                         </a>
@@ -2001,7 +2442,13 @@ export default function Home() {
                       <div className="card-body">
                         <div className="item-card7-desc">
                           <div className="item-card7-text">
-                            <a href="classified.html" className="text-dark">
+                            <a
+                              href="classified.html"
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
+                              className="text-dark"
+                            >
                               <h4 className>Chinese Restaurant</h4>
                             </a>
                           </div>
@@ -2014,19 +2461,37 @@ export default function Home() {
                               </a>
                             </li> */}
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-location-pin text-muted me-1" />
                                 UK
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-event text-muted me-1" />{" "}
                                 1 hours ago
                               </a>
                             </li>
                             <li>
-                              <a href="#" className="icons">
+                              <a
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                                className="icons"
+                              >
                                 <i className="icon icon-phone text-muted me-1" />{" "}
                                 14 675 65430
                               </a>
@@ -2060,6 +2525,9 @@ export default function Home() {
                           </div>
                           <div className="mt-2 footerimg-r ms-auto">
                             <a
+                              onClick={(e) => {
+                                e.preventDefault();
+                              }}
                               href="#"
                               className="text-pink"
                               data-bs-toggle="tooltip"
@@ -2103,6 +2571,9 @@ export default function Home() {
                     <ul className="nav items-blog-tab-menu">
                       <li className>
                         <a
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
                           href="#tab-1"
                           className="active show"
                           data-bs-toggle="tab"
@@ -2111,22 +2582,50 @@ export default function Home() {
                         </a>
                       </li>
                       <li>
-                        <a href="#tab-2" data-bs-toggle="tab" className>
+                        <a
+                          href="#tab-2"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          data-bs-toggle="tab"
+                          className
+                        >
                           Business
                         </a>
                       </li>
                       <li>
-                        <a href="#tab-3" data-bs-toggle="tab" className>
+                        <a
+                          href="#tab-3"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          data-bs-toggle="tab"
+                          className
+                        >
                           Beauty
                         </a>
                       </li>
                       <li>
-                        <a href="#tab-4" data-bs-toggle="tab" className>
+                        <a
+                          href="#tab-4"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          data-bs-toggle="tab"
+                          className
+                        >
                           Real Estate
                         </a>
                       </li>
                       <li>
-                        <a href="#tab-5" data-bs-toggle="tab" className>
+                        <a
+                          href="#tab-5"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          data-bs-toggle="tab"
+                          className
+                        >
                           Restaurant
                         </a>
                       </li>
@@ -2690,7 +3189,13 @@ export default function Home() {
                         defaultValue={""}
                       />
                     </div>
-                    <a href="#" className="btn btn-primary">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                      className="btn btn-primary"
+                    >
                       Send Message
                     </a>
                   </div>

@@ -32,22 +32,64 @@ export default function Footer() {
                 />
                 <ul className="list-unstyled mb-0">
                   <li>
-                    <a href="javascript:;">Our Team</a>
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      Our Team
+                    </a>
                   </li>
                   <li>
-                    <a href="javascript:;">Contact US</a>
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      Contact US
+                    </a>
                   </li>
                   <li>
-                    <a href="javascript:;">About</a>
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      About
+                    </a>
                   </li>
                   <li>
-                    <a href="javascript:;">Services</a>
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      Services
+                    </a>
                   </li>
                   <li>
-                    <a href="javascript:;">Blog</a>
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      Blog
+                    </a>
                   </li>
                   <li>
-                    <a href="javascript:;">Terms and Services</a>
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      Terms and Services
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -66,25 +108,25 @@ export default function Footer() {
                 />
                 <ul className="list-unstyled mb-0">
                   <li>
-                    <a href="#">
+                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
                       <i className="fa fa-home me-3 text-primary" /> New York,
                       NY 10012, US
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
                       <i className="fa fa-envelope me-3 text-primary" />
                       info12323@example.com
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
                       <i className="fa fa-phone me-3 text-primary" /> + 01 234
                       567 88
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
                       <i className="fa fa-print me-3 text-primary" /> + 01 234
                       567 89
                     </a>
@@ -185,7 +227,12 @@ export default function Footer() {
                 <div className="clearfix" />
                 <ul className="footer-payments">
                   <li className="ps-0">
-                    <a href="javascript:;">
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i
                         className="fa fa-cc-amex text-muted"
                         aria-hidden="true"
@@ -193,7 +240,12 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a href="javascript:;">
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i
                         className="fa fa-cc-visa text-muted"
                         aria-hidden="true"
@@ -201,7 +253,12 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a href="javascript:;">
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i
                         className="fa fa-credit-card-alt text-muted"
                         aria-hidden="true"
@@ -209,7 +266,12 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a href="javascript:;">
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i
                         className="fa fa-cc-mastercard text-muted"
                         aria-hidden="true"
@@ -217,7 +279,12 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a href="javascript:;">
+                    <a
+                      href="javascript:;"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i
                         className="fa fa-cc-paypal text-muted"
                         aria-hidden="true"

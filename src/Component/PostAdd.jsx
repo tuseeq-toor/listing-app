@@ -547,7 +547,7 @@ class PostAdd extends Component {
                       <>
                         <button
                           className="btn btn-success"
-                          onClick={()=>handleUpdatePost(saveModal)}
+                          onClick={() => handleUpdatePost(saveModal)}
                         >
                           Update Post
                         </button>
@@ -598,7 +598,15 @@ class PostAdd extends Component {
                         Premium ads are active for depend on package.
                       </li>
                       <li className="ms-5 mb-0">
-                        <a href="tips.html"> View more..</a>
+                        <a
+                          href="tips.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          {" "}
+                          View more..
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -631,7 +639,15 @@ class PostAdd extends Component {
                         Pay only after collecting item
                       </li>
                       <li className="ms-5 mb-0">
-                        <a href="tips.html"> View more..</a>
+                        <a
+                          href="tips.html"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          {" "}
+                          View more..
+                        </a>
                       </li>
                     </ul>
                   </div>

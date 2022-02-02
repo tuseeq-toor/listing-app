@@ -178,7 +178,7 @@ const About =()=> {
                   by the readable content of a page when looking at its layout.
                 </p>
                 <div className="mt-5">
-                  <a href="ad-posts.html" className="btn btn-primary btn-pill">
+                  <a href="ad-posts.html" className="btn btn-primary btn-pill" onClick={(e)=>{e.preventDefault()}}>
                     Free Post Ad
                   </a>
                 </div>
