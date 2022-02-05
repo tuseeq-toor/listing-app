@@ -84,8 +84,22 @@ class Topnavbar extends Component {
                     <div className="top-bar-right">
                       <ul className="custom">
                         <li>
-                          <Link to="my_ads" className="text-dark">
+                          <Link
+                            to="my_profile"
+                            className="text-dark"
+                            onClick={(e) => this.handleTab(e, "")}
+                          >
                             <i className="fa fa-user me-1" />{" "}
+                            <span>My Profile</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="my_ads"
+                            className="text-dark"
+                            onClick={(e) => this.handleTab(e, "")}
+                          >
+                            <i className="fa fa-users me-1" />{" "}
                             <span>My Ads</span>
                           </Link>
                         </li>

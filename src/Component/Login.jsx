@@ -38,9 +38,9 @@ class Login extends Component {
     );
     if (data && userData) {
       this.props.close(e);
+      this.props.logIn(data.token);
+      this.props.userInfo(userData);
     }
-    this.props.logIn(data.token);
-    this.props.userInfo(userData);
   };
   render() {
     const { saveModal } = this.state;

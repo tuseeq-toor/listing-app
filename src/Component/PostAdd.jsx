@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { callApi } from "../Utitlies/callAPI";
 import { mapStateToProps, mapDispatchToProps } from "./Action/Action";
 import { connect } from "react-redux";
-
+import Swal from "sweetalert2";
 class PostAdd extends Component {
   constructor(props) {
     super(props);
@@ -304,6 +304,9 @@ class PostAdd extends Component {
   handlePostAdd = async () => {
     const { saveModal } = this.state;
     const postData = await callApi("/ad", "post", saveModal);
+    if (postData.msg === "Ad is posted") {
+      Swal.fire("Add Posted Successfully", "", "success");
+    }
   };
   componentDidMount() {
     this.getCategory();

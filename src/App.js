@@ -13,6 +13,7 @@ import PostAdd from "./Component/PostAdd";
 import { Provider } from "react-redux";
 import Store from "./Component/Store";
 import MyAds from "./Component/MyAds";
+import Profile from "./Component/Profile";
 const App = () => {
   useEffect(() => {
     ExternalJsCall();
@@ -33,7 +34,7 @@ const App = () => {
               <Route path="browse_categories" element={<BrowseCategories />} />
               <Route path="ad_post" element={<PostAdd />} />
               <Route path="my_ads" element={<MyAds/>} />
-
+              <Route path="my_profile" element={<Profile/>} />
             </Routes>
             {/*Footer Section*/}
             <Footer />
