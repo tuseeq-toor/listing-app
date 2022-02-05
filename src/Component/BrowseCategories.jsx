@@ -3,6 +3,7 @@ import { ExternalJsCall } from "../Utitlies/LoadExternalJs";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { callApi } from "../Utitlies/callAPI";
+import ProductCard from "./ProductCard";
 
 const BrowseCategories = () => {
   useEffect(() => {
@@ -17,7 +18,8 @@ const BrowseCategories = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [locationList, setLocationList] = useState([]);
   const [seletedAdd, setSeletedAdd] = useState({});
-  const handlePageKey = (e, key) => {
+  const handlePageKey = (e, key,items) => {
+    setSeletedAdd(items);
     e.preventDefault();
     setCurrentPageKey(key);
   };
@@ -336,7 +338,9 @@ const BrowseCategories = () => {
                   <div className="col-xl-8 col-lg-12 col-md-12 d-block mx-auto">
                     <div className="text-center text-white">
                       <h1 className>
-                        <span className="font-weight-bold">16,25,365</span>{" "}
+                        <span className="font-weight-bold">
+                          {(allAdds || []).length}
+                        </span>{" "}
                         Product Available
                       </h1>
                     </div>
@@ -382,9 +386,7 @@ const BrowseCategories = () => {
             <div className="page-header">
               {/* <h4 className="page-title">Product list</h4> */}
               <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <Link to="/">Home</Link>
-                </li>
+            
                 <li className="breadcrumb-item active" aria-current="page">
                   Browse Categories
                 </li>
@@ -460,87 +462,7 @@ const BrowseCategories = () => {
                           <div className="row">
                             {(allAddsFilter || []).map((items) => {
                               return (
-                                <div className="col-lg-4 col-md-12 col-xl-3">
-                                  <div className="card overflow-hidden">
-                                    {/* <div className="ribbon ribbon-top-left text-danger">
-                                      <span className="bg-danger">
-                                        featured
-                                      </span>
-                                    </div> */}
-                                    <div className="item-card9-img">
-                                      <div className="item-card9-imgs">
-                                        <img
-                                          src="../assets/images/products/h4.png"
-                                          alt="img"
-                                          className="cover-image"
-                                        />
-                                      </div>
-                                      <div className="item-card9-icons">
-                                        <a
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                          }}
-                                          href="#"
-                                          className="item-card9-icons1 wishlist"
-                                        >
-                                          <i className="fa fa fa-heart-o" />
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="card-body">
-                                      <div className="item-card9">
-                                        {items.category}
-
-                                        <a
-                                          href="#"
-                                          onClick={(e) => {
-                                            setSeletedAdd(items);
-                                            handlePageKey(e, 101);
-                                          }}
-                                          className="text-dark mt-2"
-                                        >
-                                          <h4 className="font-weight-semibold mt-1">
-                                            {items.title}
-                                          </h4>
-                                        </a>
-                                        <p>{items.description}</p>
-                                        <ul className="item-cards7-ic mb-0 ">
-                                          <li>
-                                            <i className="icon icon-location-pin text-muted me-1" />
-                                            {items.location}
-                                          </li>
-
-                                          <li className="d-flex">
-                                            <i className="icon icon-phone text-muted me-1" />{" "}
-                                            {items.phonenumber}
-                                          </li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                    <div className="card-footer">
-                                      <div className="item-card9-footer d-flex">
-                                        <div className="item-card9-cost">
-                                          <h4
-                                            className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                          >
-                                            $263.99
-                                          </h4>
-                                        </div>
-                                        <div class="ms-auto">
-                                          <div
-                                            class="rating-star sm my-rating-5"
-                                            data-stars="4s"
-                                          ></div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+                               <ProductCard items={items} handlePageKey={handlePageKey}/>
                               );
                             })}
                           </div>
@@ -587,7 +509,7 @@ const BrowseCategories = () => {
       </div>
     </React.Fragment>
   );
-  const product = <Product seletedAdd={seletedAdd} />;
+  const product = <Product seletedAdd={seletedAdd} allAdds={allAdds}/>;
   if (CurrentPageKey === 100) {
     return <React.Fragment>{browseCategory}</React.Fragment>;
   } else if (CurrentPageKey === 101) {

@@ -5,6 +5,7 @@ import Register from "./Register";
 import { mapStateToProps, mapDispatchToProps } from "./Action/Action";
 import { connect } from "react-redux";
 import { callApi } from "../Utitlies/callAPI";
+import Swal from "sweetalert2";
 
 class Topnavbar extends Component {
   constructor(props) {
@@ -20,19 +21,36 @@ class Topnavbar extends Component {
   };
 
   hanldeLoginPop = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+
     this.setState({ loginPopup: !this.state.loginPopup });
   };
   hanldeRegisterPop = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.setState({ registerPopup: !this.state.registerPopup });
   };
-  hanldeLogout = async (e) => {
+  hanldeLogout = (e) => {
     e.preventDefault();
-    const response = await callApi("/logout", "post");
-    if (response) {
-      this.props.logIn("");
-    }
+    Swal.fire({
+      title: "Are you sure",
+      text: "You want to logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await callApi("/logout", "post");
+        if (response) {
+          this.props.logIn("");
+        }
+      }
+    });
   };
   render() {
     const { activeTab, loginPopup, registerPopup } = this.state;
@@ -274,7 +292,11 @@ class Topnavbar extends Component {
           </div>
         </div>
         {loginPopup ? (
-          <Login open={loginPopup} close={this.hanldeLoginPop} />
+          <Login
+            open={loginPopup}
+            close={this.hanldeLoginPop}
+            hanldeRegisterPop={this.hanldeRegisterPop}
+          />
         ) : null}
         {registerPopup ? (
           <Register open={registerPopup} close={this.hanldeRegisterPop} />

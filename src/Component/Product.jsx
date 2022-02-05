@@ -39,6 +39,22 @@ export default function Product(props) {
     const reviewForAdd = await callApi(`/review/ad/${seletedAdd._id}`, "get");
     setReview(reviewForAdd);
   };
+  const handleRating = (e) => {
+    const { value } = e.target;
+    let newValue = 0;
+    if (parseInt(value) > 5) {
+      newValue = 5;
+    } else if (parseInt(value) < 0) {
+      newValue = 0;
+    } else {
+      newValue = parseInt(value);
+    }
+
+    setSaveModalReview({
+      ...saveModalReview,
+      rating: newValue,
+    });
+  };
   return (
     <div>
       <div>
@@ -54,7 +70,9 @@ export default function Product(props) {
                   <div className="col-xl-8 col-lg-12 col-md-12 d-block mx-auto">
                     <div className="text-center text-white">
                       <h1 className>
-                        <span className="font-weight-bold">16,25,365</span>{" "}
+                        <span className="font-weight-bold">
+                          {(props.allAdds || []).length}
+                        </span>{" "}
                         Product Available
                       </h1>
                     </div>
@@ -509,6 +527,19 @@ export default function Product(props) {
                           value={saveModalReview.name}
                           name="name"
                           onChange={handleInput}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="name1"
+                          placeholder="Rate it out of 5"
+                          value={saveModalReview.rating}
+                          name="rating"
+                          min={0}
+                          max={5}
+                          onChange={handleRating}
                         />
                       </div>
 

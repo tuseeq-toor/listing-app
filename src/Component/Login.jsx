@@ -44,7 +44,7 @@ class Login extends Component {
   };
   render() {
     const { saveModal } = this.state;
-    const { open, close } = this.props;
+    const { open, close, hanldeRegisterPop } = this.props;
     console.log("loginToken", this.props.loginToken);
     return (
       <Modal isOpen={open} size="lg">
@@ -79,22 +79,15 @@ class Login extends Component {
                     Login
                   </button>
                 </div>
-                <p className="mb-2">
-                  <a
-                    href="forgot.html"
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                  >
-                    Forgot Password
-                  </a>
-                </p>
+
                 <p className="text-dark mb-0">
                   Don't have account?
                   <a
                     href="register.html"
                     onClick={(e) => {
                       e.preventDefault();
+                      close();
+                      hanldeRegisterPop();
                     }}
                     className="text-primary ms-1"
                   >
