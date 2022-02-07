@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { callApi } from "../Utitlies/callAPI";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Product(props) {
-  const { seletedAdd } = props;
+  const { seletedAdd, handlePageKey } = props;
   const createdData = seletedAdd.createdAt.split("T");
   const [review, setReview] = useState([]);
   const [saveModalReview, setSaveModalReview] = useState({
@@ -55,6 +58,9 @@ export default function Product(props) {
       rating: newValue,
     });
   };
+  const dispatch = useDispatch();
+  const registerUserToken = useSelector((state) => state.logIn.payload);
+  console.log("saveModalReview", saveModalReview);
   return (
     <div>
       <div>
@@ -91,22 +97,20 @@ export default function Product(props) {
               <h4 className="page-title">{seletedAdd.category}</h4>
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a
-                    href="index.html"
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
+                  <Link
+                    to="/"
+                    onClick={() =>
+                      dispatch({
+                        type: "ActiveNav",
+                        data: "Home",
+                      })
+                    }
                   >
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="breadcrumb-item">
-                  <a
-                    href="categories.html"
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                  >
+                  <a href="#" onClick={(e) => handlePageKey(e, 100, null)}>
                     Categories
                   </a>
                 </li>
@@ -178,7 +182,7 @@ export default function Product(props) {
                           className="text-primary"
                         >
                           {" "}
-                          {seletedAdd.phonenumber}
+                          +(267) {seletedAdd.phonenumber}
                         </a>
                       </h6>
                     </div>
@@ -315,7 +319,7 @@ export default function Product(props) {
                               className="icons"
                             >
                               <i className="icon icon-briefcase text-muted me-1" />
-                              Cars
+                              {seletedAdd.category}
                             </a>
                           </li>
                           <li className="me-5">
@@ -327,7 +331,7 @@ export default function Product(props) {
                               className="icons"
                             >
                               <i className="icon icon-location-pin text-muted me-1" />
-                              USA
+                              {seletedAdd.location}
                             </a>
                           </li>
                         </ul>
@@ -342,7 +346,7 @@ export default function Product(props) {
                         data-bs-thumb="true"
                       >
                         <div className="arrow-ribbon2 bg-primary">
-                          {seletedAdd.price}
+                          BWP {seletedAdd.price}
                         </div>
                         <div
                           className="carousel-inner slide-show-image"
@@ -512,58 +516,122 @@ export default function Product(props) {
                   })}
                 </div>
                 {/*/Comments*/}
-                <div className="card mb-0">
-                  <div className="card-header">
-                    <h3 className="card-title">Add Review</h3>
-                  </div>
-                  <div className="card-body">
-                    <div>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="name1"
-                          placeholder="Your Name"
-                          value={saveModalReview.name}
-                          name="name"
-                          onChange={handleInput}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="number"
-                          className="form-control"
-                          id="name1"
-                          placeholder="Rate it out of 5"
-                          value={saveModalReview.rating}
-                          name="rating"
-                          min={0}
-                          max={5}
-                          onChange={handleRating}
-                        />
-                      </div>
+                {registerUserToken ? (
+                  <div className="card mb-0">
+                    <div className="card-header">
+                      <h3 className="card-title">Add Review</h3>
+                    </div>
+                    <div className="card-body">
+                      <div>
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="name1"
+                            placeholder="Your Name"
+                            value={saveModalReview.name}
+                            name="name"
+                            onChange={handleInput}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <div className="row gutters-xs mb-3">
+                            <div className="passwd">
+                              <label>Rate it (1 - 5)</label>
+                            </div>
 
-                      <div className="form-group">
-                        <textarea
-                          className="form-control"
-                          name="example-textarea-input"
-                          rows={6}
-                          placeholder="Your Review"
-                          defaultValue={""}
-                          value={saveModalReview.reviewbody}
-                          name="reviewbody"
-                          onChange={handleInput}
-                        />
+                            <div
+                              className="col-auto"
+                              style={{ paddingLeft: "11px" }}
+                            >
+                              <label className="colorinput">
+                                <input
+                                  type="radio"
+                                  className="colorinput-input"
+                                  name="rating"
+                                  value={1}
+                                  onChange={handleRating}
+                                />
+                                <span className="colorinput-color bg-warning" />
+                              </label>
+                            </div>
+                            <div className="col-auto">
+                              <label className="colorinput">
+                                <input
+                                  name="rating"
+                                  value={2}
+                                  onChange={handleRating}
+                                  type="radio"
+                                  defaultValue="indigo"
+                                  className="colorinput-input"
+                                />
+                                  <span className="colorinput-color bg-warning" />
+                              </label>
+                            </div>
+                            <div className="col-auto">
+                              <label className="colorinput">
+                                <input
+                                  name="rating"
+                                  value={3}
+                                  onChange={handleRating}
+                                  type="radio"
+                                  defaultValue="purple"
+                                  className="colorinput-input"
+                                />
+                                 <span className="colorinput-color bg-warning" />
+                              </label>
+                            </div>
+                            <div className="col-auto">
+                              <label className="colorinput">
+                                <input
+                                  name="rating"
+                                  value={4}
+                                  onChange={handleRating}
+                                  type="radio"
+                                  defaultValue="pink"
+                                  className="colorinput-input"
+                                />
+                                 <span className="colorinput-color bg-warning" />
+                              </label>
+                            </div>
+                            <div className="col-auto">
+                              <label className="colorinput">
+                                <input
+                                  name="rating"
+                                  value={5}
+                                  onChange={handleRating}
+                                  type="radio"
+                                  defaultValue="red"
+                                  className="colorinput-input"
+                                />
+                                  <span className="colorinput-color bg-warning" />
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="form-group">
+                          <textarea
+                            className="form-control"
+                            name="example-textarea-input"
+                            rows={6}
+                            placeholder="Your Review"
+                            defaultValue={""}
+                            value={saveModalReview.reviewbody}
+                            name="reviewbody"
+                            onChange={handleInput}
+                          />
+                        </div>
+                        <button
+                          onClick={hanldePostReview}
+                          className="btn btn-primary"
+                        >
+                          Add Review
+                        </button>
                       </div>
-                      <button
-                        onClick={hanldePostReview}
-                        className="btn btn-primary"
-                      >
-                        Add Review
-                      </button>
                     </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
           </div>

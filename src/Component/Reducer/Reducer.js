@@ -18,9 +18,9 @@ const userInfo = (state = { payload: "" }, action) => {
 };
 
 // login Reducer
-const ActiveNav = (state="" ,action) => {
+const ActiveNav = (state = { payload: "Home" }, action) => {
   if (action.type === "ActiveNav") {
-    return { state: action.data };
+    return { ...state, payload: action.data };
   }
 
   return state;
@@ -29,6 +29,6 @@ const ActiveNav = (state="" ,action) => {
 const allreducers = combineReducers({
   logIn,
   userInfo,
-  ActiveNav
+  ActiveNav,
 });
 export default allreducers;

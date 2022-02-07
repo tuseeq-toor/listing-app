@@ -11,13 +11,14 @@ class Topnavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: "Home",
+      activeTab: this.props.ActiveTab || "Home",
       loginPopup: false,
       registerPopup: false,
     };
   }
   handleTab = (e, tabName) => {
     this.setState({ activeTab: tabName });
+    this.props.manageNavKey(tabName);
   };
 
   hanldeLoginPop = (e) => {
@@ -52,8 +53,11 @@ class Topnavbar extends Component {
       }
     });
   };
+
   render() {
-    const { activeTab, loginPopup, registerPopup } = this.state;
+    const { loginPopup, registerPopup } = this.state;
+    const { ActiveTab } = this.props;
+
     return (
       <React.Fragment>
         {/*Topbar*/}
@@ -174,22 +178,22 @@ class Topnavbar extends Component {
           <div className="horizontal-main bg-dark-transparent clearfix">
             <div className="horizontal-mainwrapper container clearfix">
               <div className="desktoplogo" style={{ height: "80px" }}>
-                <a href="index.html" onClick={(e) => e.preventDefault()}>
+                <Link to="/" onClick={(e) => this.handleTab(e, "Home")}>
                   <img
                     src="../assets/images/brand/newLogo2.png"
                     alt=""
                     height="100%"
                   />
-                </a>
+                </Link>
               </div>
               <div className="desktoplogo-1" style={{ height: "80px" }}>
-                <a href="index.html" onClick={(e) => e.preventDefault()}>
+                <Link to="/" onClick={(e) => this.handleTab(e, "Home")}>
                   <img
                     src="../assets/images/brand/newLogo.png"
                     alt=""
                     height="100%"
                   />
-                </a>
+                </Link>
               </div>
               {/*Nav*/}
               <nav
@@ -201,7 +205,7 @@ class Topnavbar extends Component {
                   <li aria-haspopup="true">
                     <Link
                       to="/"
-                      className={activeTab === "Home" ? "active" : ""}
+                      className={ActiveTab === "Home" ? "active" : ""}
                       onClick={(e) => this.handleTab(e, "Home")}
                     >
                       Home
@@ -214,12 +218,11 @@ class Topnavbar extends Component {
                     <Link
                       to="browse_categories"
                       className={
-                        activeTab === "Browse Categories" ? "active" : ""
+                        ActiveTab === "Browse Categories" ? "active" : ""
                       }
                       onClick={(e) => this.handleTab(e, "Browse Categories")}
                     >
                       Browse Categories{" "}
-                      <span className="fa fa-caret-down m-0" />
                     </Link>
                     {/* <ul className="sub-menu">
                       <li aria-haspopup="true">
@@ -252,7 +255,7 @@ class Topnavbar extends Component {
                   <li aria-haspopup="true">
                     <Link
                       to="about_us"
-                      className={activeTab === "About Us" ? "active" : ""}
+                      className={ActiveTab === "About Us" ? "active" : ""}
                       onClick={(e) => this.handleTab(e, "About Us")}
                     >
                       About Us{" "}
@@ -261,7 +264,7 @@ class Topnavbar extends Component {
                   <li aria-haspopup="true">
                     <Link
                       to="contact_us"
-                      className={activeTab === "Contact Us" ? "active" : ""}
+                      className={ActiveTab === "Contact Us" ? "active" : ""}
                       onClick={(e) => this.handleTab(e, "Contact Us")}
                     >
                       Contact Us <span className="wsarrow" />

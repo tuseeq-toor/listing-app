@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { callApi } from "../Utitlies/callAPI";
+import Swal from "sweetalert2";
 
 export default function Home() {
   useEffect(() => {
@@ -8,6 +10,24 @@ export default function Home() {
   }, []);
 
   const [categorisData, setCategorisData] = useState([]);
+  const [saveModal, setSaveModal] = useState({
+    sendername: "",
+    senderemail: "",
+    messbody: "",
+  });
+  const handleInput = (e) => {
+    const { value, name } = e.target;
+    setSaveModal({
+      ...saveModal,
+      [name]: value,
+    });
+  };
+  const handlePostMessage = async () => {
+    const respone = await callApi("/contactmessage", "post", saveModal);
+    if (respone) {
+      Swal.fire("Message sent successfully", "", "success");
+    }
+  };
   const getCategoris = async () => {
     const data = await axios.get(`${process.env.REACT_APP_URL_USER}/category`);
     setCategorisData(data?.data);
@@ -3170,6 +3190,9 @@ export default function Home() {
                         className="form-control"
                         id="name1"
                         placeholder="Your Name"
+                        name="sendername"
+                        value={saveModal.sendername}
+                        onChange={handleInput}
                       />
                     </div>
                     <div className="form-group">
@@ -3178,6 +3201,9 @@ export default function Home() {
                         className="form-control"
                         id="email"
                         placeholder="Email Address"
+                        name="senderemail"
+                        value={saveModal.senderemail}
+                        onChange={handleInput}
                       />
                     </div>
                     <div className="form-group">
@@ -3187,17 +3213,17 @@ export default function Home() {
                         rows={6}
                         placeholder="Message"
                         defaultValue={""}
+                        name="messbody"
+                        value={saveModal.messbody}
+                        onChange={handleInput}
                       />
                     </div>
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
+                    <button
                       className="btn btn-primary"
+                      onClick={handlePostMessage}
                     >
                       Send Message
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

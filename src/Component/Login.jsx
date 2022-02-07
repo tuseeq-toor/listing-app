@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { callApi } from "../Utitlies/callAPI";
-import withRouter from "react-router-dom";
 import { mapStateToProps, mapDispatchToProps } from "./Action/Action";
 import { connect } from "react-redux";
-
+import FacebookLogin from "react-facebook-login";
+import Swal from "sweetalert2";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +14,7 @@ class Login extends Component {
     };
     this.state = {
       saveModal: this.saveModal,
+      openFaceBookPopUp: false,
     };
   }
   handleField = (e) => {
@@ -28,115 +29,148 @@ class Login extends Component {
   handleLogin = async (e) => {
     e.preventDefault();
     const { saveModal } = this.state;
-    const data = await callApi("/login", "post", saveModal);
-    const userData = await callApi(
-      "/userinfo",
-      "get",
-      null,
-      data.id,
-      data.token
-    );
-    if (data && userData) {
-      this.props.close(e);
-      this.props.logIn(data.token);
-      this.props.userInfo(userData);
-    }
+    let data;
+    callApi("/login", "post", saveModal)
+      .then(async (res) => {
+        const userData = await callApi(
+          "/userinfo",
+          "get",
+          null,
+          res.id,
+          res.token
+        );
+        if (res.msg === "Login Successfully" && userData) {
+          this.props.close(e);
+          this.props.logIn(res.token);
+          this.props.userInfo(userData);
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "User not found",
+        });
+      });
+  };
+  responseFacebook = (response) => {
+    console.log(response);
+    // setData(response);
+    // setPicture(response.picture.data.url);
+    // if (response.accessToken) {
+    //   setLogin(true);
+    // } else {
+    //   setLogin(false);
+    // }
+  };
+  handleFacebookPopUp = (e) => {
+    e.preventDefault();
+    this.setState({
+      openFaceBookPopUp: !this.state.openFaceBookPopUp,
+    });
   };
   render() {
-    const { saveModal } = this.state;
+    const { saveModal, openFaceBookPopUp } = this.state;
     const { open, close, hanldeRegisterPop } = this.props;
-    console.log("loginToken", this.props.loginToken);
     return (
-      <Modal isOpen={open} size="lg">
-        <ModalHeader toggle={close}>Login</ModalHeader>
-        <ModalBody>
-          <div className="single-page customerpage ">
-            <div className="wrapper wrapper2 box-shadow-0">
-              <form id="login" className="card-body" tabIndex={500}>
-                <div className="mail">
-                  <input
-                    type="email"
-                    name="email"
-                    value={saveModal.email}
-                    onChange={this.handleField}
-                  />
-                  <label>Mail or Username</label>
-                </div>
-                <div className="passwd">
-                  <input
-                    type="password"
-                    name="password"
-                    value={saveModal.password}
-                    onChange={this.handleField}
-                  />
-                  <label>Password</label>
-                </div>
-                <div className="submit">
-                  <button
-                    className="btn btn-primary btn-block"
-                    onClick={this.handleLogin}
-                  >
-                    Login
-                  </button>
-                </div>
+      <React.Fragment>
+        {/* <FacebookLogin
+            appId="921201001964201"
+            autoLoad={true}
+            fields="name,email,picture"
+            scope="public_profile,user_friends"
+            callback={this.responseFacebook}
+            icon="fa-facebook"
+          /> */}
 
-                <p className="text-dark mb-0">
-                  Don't have account?
-                  <a
-                    href="register.html"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      close();
-                      hanldeRegisterPop();
-                    }}
-                    className="text-primary ms-1"
-                  >
-                    Sign Up
-                  </a>
-                </p>
-              </form>
-              <hr className="divider" />
-              <div className="card-body">
-                <div className="text-center">
-                  <div className="btn-group">
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
-                      href="https://www.facebook.com/"
-                      className="btn btn-icon me-2 brround"
-                    >
-                      <span className="fa fa-facebook" />
-                    </a>
+        <Modal isOpen={open} size="lg">
+          <ModalHeader toggle={close}>Login</ModalHeader>
+          <ModalBody>
+            <div className="single-page customerpage ">
+              <div className="wrapper wrapper2 box-shadow-0">
+                <form id="login" className="card-body" tabIndex={500}>
+                  <div className="mail">
+                    <input
+                      type="email"
+                      name="email"
+                      value={saveModal.email}
+                      onChange={this.handleField}
+                    />
+                    <label>Mail or Username</label>
                   </div>
-                  <div className="btn-group">
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
-                      href="https://www.google.com/gmail/"
-                      className="btn  me-2 btn-icon brround"
-                    >
-                      <span className="fa fa-google" />
-                    </a>
+                  <div className="passwd">
+                    <input
+                      type="password"
+                      name="password"
+                      value={saveModal.password}
+                      onChange={this.handleField}
+                    />
+                    <label>Password</label>
                   </div>
-                  <div className="btn-group">
+                  <div className="submit">
+                    <button
+                      className="btn btn-primary btn-block"
+                      onClick={this.handleLogin}
+                    >
+                      Login
+                    </button>
+                  </div>
+
+                  <p className="text-dark mb-0">
+                    Don't have account?
                     <a
+                      href="register.html"
                       onClick={(e) => {
                         e.preventDefault();
+                        close();
+                        hanldeRegisterPop();
                       }}
-                      href="https://twitter.com/"
-                      className="btn  btn-icon brround"
+                      className="text-primary ms-1"
                     >
-                      <span className="fa fa-twitter" />
+                      Sign Up
                     </a>
+                  </p>
+                </form>
+                <hr className="divider" />
+                <div className="card-body">
+                  <div className="text-center">
+                    <div className="btn-group">
+                      <a
+                        onClick={this.handleFacebookPopUp}
+                        href="#"
+                        className="btn btn-icon me-2 brround"
+                      >
+                        <span className="fa fa-facebook" />
+                      </a>
+                    </div>
+                    <div className="btn-group">
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                        href="https://www.google.com/gmail/"
+                        className="btn  me-2 btn-icon brround"
+                      >
+                        <span className="fa fa-google" />
+                      </a>
+                    </div>
+                    <div className="btn-group">
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                        href="https://twitter.com/"
+                        className="btn  btn-icon brround"
+                      >
+                        <span className="fa fa-twitter" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ModalBody>
-      </Modal>
+          </ModalBody>
+        </Modal>
+      </React.Fragment>
     );
   }
 }

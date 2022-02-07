@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { callApi } from "../Utitlies/callAPI";
 
-export default function ProductCard({ items, handlePageKey }) {
+export default function ProductCard({
+  items,
+  handlePageKey,
+  handleEditAdd,
+  handleDeleteAdd,
+  callFrom,
+}) {
   useEffect(() => {
     getReview();
   }, []);
@@ -34,7 +40,7 @@ export default function ProductCard({ items, handlePageKey }) {
       return (
         <React.Fragment>
           {" "}
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
           <i class="fa fa-star "></i>
           <i class="fa fa-star "></i>
           <i class="fa fa-star "></i>
@@ -45,8 +51,8 @@ export default function ProductCard({ items, handlePageKey }) {
       return (
         <React.Fragment>
           {" "}
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
           <i class="fa fa-star "></i>
           <i class="fa fa-star "></i>
           <i class="fa fa-star "></i>
@@ -56,9 +62,9 @@ export default function ProductCard({ items, handlePageKey }) {
       return (
         <React.Fragment>
           {" "}
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
           <i class="fa fa-star "></i>
           <i class="fa fa-star "></i>
         </React.Fragment>
@@ -67,10 +73,10 @@ export default function ProductCard({ items, handlePageKey }) {
       return (
         <React.Fragment>
           {" "}
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
           <i class="fa fa-star "></i>
         </React.Fragment>
       );
@@ -78,11 +84,11 @@ export default function ProductCard({ items, handlePageKey }) {
       return (
         <React.Fragment>
           {" "}
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
-          <i class="fa fa-star" style={{color:"yellow"}}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
+          <i class="fa fa-star" style={{ color: "yellow" }}></i>
         </React.Fragment>
       );
     }
@@ -104,15 +110,34 @@ export default function ProductCard({ items, handlePageKey }) {
             />
           </div>
           <div className="item-card9-icons">
-            <a
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-              href="#"
-              className="item-card9-icons1 wishlist"
-            >
-              <i className="fa fa fa-heart-o" />
-            </a>
+            {callFrom === "MyAds" ? (
+              <React.Fragment>
+                <a
+                  href="#"
+                  onClick={(e) => handleEditAdd(e, items)}
+                  className="item-card9-icons1 wishlist"
+                >
+                  <i className="fa fa fa-edit" />
+                </a>
+                <a
+                  href="#"
+                  onClick={(e) => handleDeleteAdd(e, items)}
+                  className="item-card9-icons1 wishlist"
+                >
+                  <i className="fa fa fa-trash" />
+                </a>
+              </React.Fragment>
+            ) : (
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+                href="#"
+                className="item-card9-icons1 wishlist"
+              >
+                <i className="fa fa fa-heart-o" />
+              </a>
+            )}
           </div>
         </div>
         <div className="card-body">
@@ -129,17 +154,6 @@ export default function ProductCard({ items, handlePageKey }) {
               <h4 className="font-weight-semibold mt-1">{items.title}</h4>
             </a>
             <p>{items.description}</p>
-            <ul className="item-cards7-ic mb-0 ">
-              <li>
-                <i className="icon icon-location-pin text-muted me-1" />
-                {items.location}
-              </li>
-
-              <li className="d-flex">
-                <i className="icon icon-phone text-muted me-1" />{" "}
-                {items.phonenumber}
-              </li>
-            </ul>
           </div>
         </div>
         <div className="card-footer">
@@ -153,7 +167,7 @@ export default function ProductCard({ items, handlePageKey }) {
                     mt-0
                     "
               >
-                $263.99
+                BWP {items.price}
               </h4>
             </div>
             <div class="ms-auto">{showStar()}</div>

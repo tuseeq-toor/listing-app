@@ -7,6 +7,7 @@ import { allLocation } from "../Utitlies/location";
 import { useSelector } from "react-redux";
 import PostAdd from "./PostAdd";
 import Swal from "sweetalert2";
+import ProductCard from "./ProductCard";
 
 const MyAds = () => {
   useEffect(() => {
@@ -30,7 +31,8 @@ const MyAds = () => {
   const [seletedAdd, setSeletedAdd] = useState({});
 
   const userInfo = useSelector((state) => state.userInfo.payload);
-  const handlePageKey = (e, key) => {
+  const handlePageKey = (e, key, items) => {
+    setSeletedAdd(items);
     e.preventDefault();
     setCurrentPageKey(key);
   };
@@ -83,9 +85,17 @@ const MyAds = () => {
     setCategoryList(categoryData);
   };
 
-  const getLocation = () => {
-    const location = allLocation();
-    setLocationList(location);
+  const getLocation = async () => {
+    const locationData = await callApi(
+      "/location",
+      "get",
+      null,
+      null,
+      null,
+      "Admin"
+    );
+
+    setLocationList((locationData || []).locations || []);
   };
 
   const handleInput = (e) => {
@@ -246,8 +256,8 @@ const MyAds = () => {
                                 <option value="">Select Location</option>
                                 {locationList.map((items, i) => {
                                   return (
-                                    <option value={items} key={i}>
-                                      {items}
+                                    <option value={items.name} key={i}>
+                                      {items.name}
                                     </option>
                                   );
                                 })}
@@ -268,96 +278,13 @@ const MyAds = () => {
                           <div className="row">
                             {(allAddsFilter || []).map((items) => {
                               return (
-                                <div className="col-lg-4 col-md-12 col-xl-3">
-                                  <div className="card overflow-hidden">
-                                    {/* <div className="ribbon ribbon-top-left text-danger">
-                                      <span className="bg-danger">
-                                        featured
-                                      </span>
-                                    </div> */}
-                                    <div className="item-card9-img">
-                                      <div className="item-card9-imgs">
-                                        <img
-                                          src="../assets/images/products/h4.png"
-                                          alt="img"
-                                          className="cover-image"
-                                        />
-                                      </div>
-                                      <div className="item-card9-icons">
-                                        <a
-                                          href="#"
-                                          onClick={(e) =>
-                                            handleEditAdd(e, items)
-                                          }
-                                          className="item-card9-icons1 wishlist"
-                                        >
-                                          <i className="fa fa fa-edit" />
-                                        </a>
-                                        <a
-                                          href="#"
-                                          onClick={(e) =>
-                                            handleDeleteAdd(e, items)
-                                          }
-                                          className="item-card9-icons1 wishlist"
-                                        >
-                                          <i className="fa fa fa-trash" />
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="card-body">
-                                      <div className="item-card9">
-                                        {items.category}
-
-                                        <a
-                                          href="#"
-                                          onClick={(e) => {
-                                            setSeletedAdd(items);
-                                            handlePageKey(e, 101);
-                                          }}
-                                          className="text-dark mt-2"
-                                        >
-                                          <h4 className="font-weight-semibold mt-1">
-                                            {items.title}
-                                          </h4>
-                                        </a>
-                                        <p>{items.description}</p>
-                                        <ul className="item-cards7-ic mb-0">
-                                          <li>
-                                            <i className="icon icon-location-pin text-muted me-1" />
-                                            {items.location}
-                                          </li>
-                                        
-                                          <li style={{ width: "100%" }}>
-                                            <i className="icon icon-phone text-muted me-1" />{" "}
-                                            {items.phonenumber}
-                                          </li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                    <div className="card-footer">
-                                      <div className="item-card9-footer d-flex">
-                                        <div className="item-card9-cost">
-                                          <h4
-                                            className="
-                                text-dark
-                                font-weight-semibold
-                                mb-0
-                                mt-0
-                              "
-                                          >
-                                            $263.99
-                                          </h4>
-                                        </div>
-                                        <div class="ms-auto">
-                                          <div
-                                            class="rating-star sm my-rating-5"
-                                            data-stars="4s"
-                                          ></div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+                                <ProductCard
+                                  items={items}
+                                  handlePageKey={handlePageKey}
+                                  handleEditAdd={handleEditAdd}
+                                  handleDeleteAdd={handleDeleteAdd}
+                                  callFrom="MyAds"
+                                />
                               );
                             })}
                           </div>

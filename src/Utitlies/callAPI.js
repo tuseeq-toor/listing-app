@@ -1,12 +1,12 @@
 import axios from "axios";
 import Store from "./../Component/Store";
 
-export const callApi = (endpoint, method, payload, id,token) => {
+export const callApi = (endpoint, method, payload, id,token,callFrom) => {
   let usertoken = Store.getState().logIn && Store.getState().logIn.payload || token;
   let UserId = Store.getState().userInfo && Store.getState().userInfo.payload.id || id ;
   const configaxios = {
     method,
-    url: `${process.env.REACT_APP_URL_USER}${endpoint}`,
+    url: callFrom==="Admin"?`${process.env.REACT_APP_URL_ADMIN}${endpoint}`:`${process.env.REACT_APP_URL_USER}${endpoint}`,
     data: payload,
     headers: {
       Accept: "*/*",

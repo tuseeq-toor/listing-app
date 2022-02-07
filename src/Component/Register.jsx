@@ -40,20 +40,35 @@ export default function Register(props) {
       [name]: value,
     });
   };
-
   // handle Post
   const handleRegister = (e) => {
     e.preventDefault();
-    const response = callApi(`/signup?phonenumber=${saveModal.phonenumber}&code=${otp}`,"post",saveModal)
-    if(response==="Signup completed Successfully"){
-      close(e)
+    const response = callApi(
+      `/signup?phonenumber=${saveModal.phonenumber}&code=${otp}`,
+      "post",
+      saveModal
+    );
+    if (response === "Signup completed Successfully") {
+      close(e);
     }
   };
   // to resend the otp
-  const sendOTP =(e) => {
+  const sendOTP = (e) => {
     e.preventDefault();
-    setSendOTPPopUp(true)
-    const data = callApi(`/sendotp?phonenumber=${saveModal.phonenumber}&channel=sms`)
+    setSendOTPPopUp(true);
+    const data = callApi(
+      `/sendotp?phonenumber=${saveModal.phonenumber}&channel=sms`
+    );
+  };
+  // Handle Phone number
+  const handlePhoneNumber = (e) => {
+    const { value, name } = e.target;
+    if ((value || []).length < 9) {
+      setSaveModal({
+        ...saveModal,
+        [name]: value,
+      });
+    }
   };
   return (
     <Modal isOpen={open} size="lg">
@@ -81,16 +96,28 @@ export default function Register(props) {
                   />
                   <label>Address</label>
                 </div>
+
                 <div className="mail">
-                  <input
-                    type="number"
-                    name="phonenumber"
-                    value={saveModal.phonenumber}
-                    onChange={handleInputField}
-                    placeholder="92 12345678910"
-                  />
-                  <label>Phone Number</label>
+                  <label htmlFor="exampleInputEmail1" className="form-label">
+                    Phone Number:
+                  </label>
+                  <div className="d-flex">
+                    <span
+                      className="btn btn-sm btn-light border font-weight-bold"
+                      style={{ paddingTop: "13px" }}
+                    >
+                      +267
+                    </span>
+                    <input
+                      type="number"
+                      className="form-control form-control-sm"
+                      name="phonenumber"
+                      value={saveModal.phonenumber}
+                      onChange={handlePhoneNumber}
+                    />
+                  </div>
                 </div>
+
                 <div className="passwd">
                   <input
                     type="email"
@@ -109,6 +136,7 @@ export default function Register(props) {
                   />
                   <label>Password</label>
                 </div>
+                <small style={{color:"gray"}}>SMS and/or data charges may apply</small>
                 <div className="submit">
                   <button
                     className="btn btn-primary btn-block"
@@ -124,14 +152,15 @@ export default function Register(props) {
           <div className="single-page customerpage ">
             <div className="wrapper wrapper2 box-shadow-0">
               <form id="login" className="card-body" tabIndex={500}>
-                
                 <div className="mail">
                   <input
                     className="text-center"
                     type="number"
                     name="otp"
                     value={otp}
-                    onChange={(e)=>{setOtp(e.target.value)}}
+                    onChange={(e) => {
+                      setOtp(e.target.value);
+                    }}
                   />
                   <label>Enter 4 digit OTP Code</label>
                 </div>
