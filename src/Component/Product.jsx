@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Accordion from 'react-bootstrap/Accordion'
 
 export default function Product(props) {
   const { seletedAdd, handlePageKey } = props;
@@ -168,7 +169,24 @@ export default function Product(props) {
                     </div>
                   </div>
                   <div className="card-body item-user">
-                    <h4 className="mb-4">Contact Info</h4>
+                    <Accordion>
+                      <Accordion.Item eventKey="0">
+                        <Accordion.Header>Contact Info</Accordion.Header>
+                        <Accordion.Body>
+                          <a
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                            }}
+                            className="text-primary"
+                          >
+                            {" "}
+                            +(267) {seletedAdd.phonenumber}
+                          </a>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </Accordion>
+                    {/* <h4 className="mb-4">Contact Info</h4>
                     <div>
                       <h6>
                         <span className="font-weight-semibold">
@@ -185,7 +203,7 @@ export default function Product(props) {
                           +(267) {seletedAdd.phonenumber}
                         </a>
                       </h6>
-                    </div>
+                    </div> */}
                   </div>
                   {/* <div class="card-footer">
                 <div class="text-start">

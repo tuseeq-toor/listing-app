@@ -1,6 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const dispatch = useDispatch();
   return (
     <section className="main-footer">
       <footer className="bg-dark-purple text-white">
@@ -32,64 +35,59 @@ export default function Footer() {
                 />
                 <ul className="list-unstyled mb-0">
                   <li>
-                    <a
-                      href="javascript:;"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
+                    <Link
+                      to="/contact_us"
+                      onClick={() =>
+                        dispatch({
+                          type: "ActiveNav",
+                          data: "Contact Us",
+                        })
+                      }
                     >
-                      Our Team
-                    </a>
+                      Contact Us
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="javascript:;"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
+                    <Link
+                      to="/about_us"
+                      onClick={() =>
+                        dispatch({
+                          type: "ActiveNav",
+                          data: "About Us",
+                        })
+                      }
                     >
-                      Contact US
-                    </a>
+                      About Us
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="javascript:;"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
+                    <Link
+                      to="/privacy_policy"
+                      onClick={() =>
+                        dispatch({
+                          type: "ActiveNav",
+                          data: "",
+                        })
+                      }
                     >
-                      About
-                    </a>
+                      Privacy Policy
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="javascript:;"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
-                    >
-                      Services
-                    </a>
+                    <Link to="terms_condition">Terms & Conditions</Link>
                   </li>
                   <li>
-                    <a
-                      href="javascript:;"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
+                    <Link
+                      to="stay_safe"
+                      onClick={() =>
+                        dispatch({
+                          type: "ActiveNav",
+                          data: "",
+                        })
+                      }
                     >
-                      Blog
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="javascript:;"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
-                    >
-                      Terms and Services
-                    </a>
+                      Stay Safe
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -108,25 +106,45 @@ export default function Footer() {
                 />
                 <ul className="list-unstyled mb-0">
                   <li>
-                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i className="fa fa-home me-3 text-primary" /> New York,
                       NY 10012, US
                     </a>
                   </li>
                   <li>
-                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i className="fa fa-envelope me-3 text-primary" />
                       info12323@example.com
                     </a>
                   </li>
                   <li>
-                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i className="fa fa-phone me-3 text-primary" /> + 01 234
                       567 88
                     </a>
                   </li>
                   <li>
-                    <a href="#" onClick={(e)=>{e.preventDefault()}}>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
                       <i className="fa fa-print me-3 text-primary" /> + 01 234
                       567 89
                     </a>

@@ -270,6 +270,15 @@ class Topnavbar extends Component {
                       Contact Us <span className="wsarrow" />
                     </Link>
                   </li>
+                  <li aria-haspopup="true">
+                    <Link
+                      to="get_verified"
+                      className={ActiveTab === "Get Verified" ? "active" : ""}
+                      onClick={(e) => this.handleTab(e, "Get Verified")}
+                    >
+                      Get Verified <span className="wsarrow" />
+                    </Link>
+                  </li>
                   <li aria-haspopup="true" className="PostFreeAdd">
                     {!this.props.loginToken ? (
                       <a

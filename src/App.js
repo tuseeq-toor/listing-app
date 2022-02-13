@@ -14,6 +14,10 @@ import { Provider } from "react-redux";
 import Store from "./Component/Store";
 import MyAds from "./Component/MyAds";
 import Profile from "./Component/Profile";
+import PrivacyPolicy from "./Component/PrivacyPolicy";
+import TermsCondition from "./Component/TermsCondition";
+import StaySafe from "./Component/StaySafe";
+import GetVerified from "./Component/GetVerified";
 const App = () => {
   useEffect(() => {
     ExternalJsCall();
@@ -34,7 +38,11 @@ const App = () => {
               <Route path="browse_categories" element={<BrowseCategories />} />
               <Route path="ad_post" element={<PostAdd />} />
               <Route path="my_ads" element={<MyAds/>} />
-              <Route path="my_profile" element={<Profile/>} />
+              <Route path="my_profile" element={<Profile/>} /> 
+              <Route path="privacy_policy" element={<PrivacyPolicy/>} />
+              <Route path="/terms_condition" element={<TermsCondition />} />
+              <Route path="/stay_safe" element={<StaySafe />} />
+              <Route path="/get_verified" element={<GetVerified />} />
             </Routes>
             {/*Footer Section*/}
             <Footer />
