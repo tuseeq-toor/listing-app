@@ -5,20 +5,21 @@ import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import UpdatePassword from "./UpdatePassword";
 
-export default function Profile() {
+export default function Profile(props) {
   //User current data
   const userData = useSelector((state) => state.userInfo.payload);
+  const { fromSeller, closeSellerPage, sellerData } = props
   const dispatch = useDispatch();
   // saveModal
   const [saveModal, setSaveModal] = useState({
-    name: userData.name || "",
-    email: userData.email || "",
-    password: userData.password || "",
-    phonenumber: userData.phonenumber || "",
-    aboutme: userData.aboutme || "",
-    address: userData.address || "",
-    location: userData.location || "",
-    role: userData.role || "",
+    name: (sellerData || {}).name || (userData || {}).name || "",
+    email: (sellerData || {}).email || (userData || {}).email || "",
+    password: (sellerData || {}).password || (userData || {}).password || "",
+    phonenumber: (sellerData || {}).phonenumber || (userData || {}).phonenumber || "",
+    aboutme: (sellerData || {}).aboutme || (userData || {}).aboutme || "",
+    address: (sellerData || {}).address || (userData || {}).address || "",
+    location: (sellerData || {}).location || (userData || {}).location || "",
+    role: (sellerData || {}).role || (userData || {}).role || "",
   });
   const [passwordPopup, setPasswordPopup] = useState(false);
   // Input handle Field
@@ -63,7 +64,7 @@ export default function Profile() {
           <div className="header-text mb-0">
             <div className="container">
               <div className="text-center text-white">
-                <h1 className>My Profile</h1>
+                <h1 className>{fromSeller ? "User Profile" : "My Profile"}</h1>
               </div>
             </div>
           </div>
@@ -78,17 +79,18 @@ export default function Profile() {
               <div className="card mb-0">
                 <div className="card-header row">
                   <div className="col-lg-6">
-                    <h3 className="card-title">Edit Profile</h3>
+                    <h3 className="card-title">{fromSeller ? "User Profile" : "Edit Profile"}</h3>
                   </div>
                   <div className="col-lg-6" style={{ textAlign: "right" }}>
-                    <a
+                    {fromSeller ? null : <a
                       href="#"
                       className="card-title"
                       style={{ fontSize: "15px" }}
                       onClick={handleUpdatePassword}
                     >
                       Change Password
-                    </a>
+                    </a>}
+
                   </div>
                 </div>
                 <div className="card-body">
@@ -96,46 +98,50 @@ export default function Profile() {
                     <div className="col-sm-6 col-md-6">
                       <div className="form-group">
                         <label className="form-label">Name</label>
-                        <input
+
+                        {fromSeller ? <p>{saveModal.name || "-"}</p> : <input
                           type="text"
                           className="form-control"
                           placeholder="First Name"
                           name="name"
                           value={saveModal.name}
                           onChange={handleInputField}
-                        />
+                        />}
+
                       </div>
                     </div>
                     <div className="col-sm-6 col-md-6">
                       <div className="form-group">
                         <label className="form-label">Email address</label>
-                        <input
+                        {fromSeller ? <p>{saveModal.email || "-"}</p> : <input
                           type="email"
                           className="form-control"
                           placeholder="Email"
                           name="email"
                           value={saveModal.email}
                           onChange={handleInputField}
-                        />
+                        />}
+
                       </div>
                     </div>
                     <div className="col-sm-6 col-md-6">
                       <div className="form-group">
                         <label className="form-label">Phone Number</label>
-                        <input
+                        {fromSeller ? <p>{saveModal.phonenumber || "-"}</p> : <input
                           type="number"
                           className="form-control"
                           placeholder="Number"
                           name="phonenumber"
                           value={saveModal.phonenumber}
                           onChange={handleInputField}
-                        />
+                        />}
+
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="form-group">
                         <label className="form-label">Country</label>
-                        <select
+                        {fromSeller ? <p>{saveModal.location || "-"}</p> : <select
                           className="form-control "
                           data-placeholder="Select"
                           name="location"
@@ -157,27 +163,29 @@ export default function Profile() {
                           <option value={12}>Kuwait</option>
                           <option value={13}>Mexico</option>
                           <option value={14}>Pakistan</option>
-                        </select>
+                        </select>}
+
                       </div>
                     </div>
                     <div className="col-md-12">
                       <div className="form-group">
                         <label className="form-label">Address</label>
-                        <input
+                        {fromSeller ? <p>{saveModal.address || "-"}</p> : <input
                           type="text"
                           className="form-control"
                           placeholder="Home Address"
                           name="address"
                           value={saveModal.address}
                           onChange={handleInputField}
-                        />
+                        />}
+
                       </div>
                     </div>
 
                     <div className="col-md-12">
                       <div className="form-group">
                         <label className="form-label">About Me</label>
-                        <textarea
+                        {fromSeller ? <p>{saveModal.aboutme || "-"}</p> : <textarea
                           rows={5}
                           className="form-control"
                           placeholder="Enter About your description"
@@ -185,19 +193,27 @@ export default function Profile() {
                           name="aboutme"
                           value={saveModal.aboutme}
                           onChange={handleInputField}
-                        />
+                        />}
+
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="card-footer">
-                  <button
+                  {fromSeller ? <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={closeSellerPage}
+                  >
+                    Back
+                  </button> : <button
                     type="submit"
                     className="btn btn-primary"
                     onClick={handleUpdateProfile}
                   >
                     Updated Profile
-                  </button>
+                  </button>}
+
                 </div>
               </div>
             </div>
