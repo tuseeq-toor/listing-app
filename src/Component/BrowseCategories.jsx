@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { ExternalJsCall } from "../Utitlies/LoadExternalJs";
-import { Link } from "react-router-dom";
 import Product from "./Product";
 import { callApi } from "../Utitlies/callAPI";
 import ProductCard from "./ProductCard";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const BrowseCategories = () => {
+  const reduxState = useSelector(state => state)
+  const dispatch = useDispatch()
   useEffect(() => {
     ExternalJsCall();
     getNonpremiumadd();
     getCategory();
     getLocation();
   }, []);
-  const [searchModal, setSearchModal] = useState({ cat: "", loc: "" });
+  const [searchModal, setSearchModal] = useState({
+    cat: "",
+    loc: "",
+    title: ((reduxState || {}).MainSearch || {}).payload,
+  });
   const [allAdds, setAllAdds] = useState([]);
   const [allAddsFilter, setAllAddsFilter] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
@@ -52,6 +59,10 @@ const BrowseCategories = () => {
       ...searchModal,
       [name]: value,
     });
+    dispatch({
+      type: "MainSearch",
+      data: "",
+    })
   };
   useEffect(() => {
     hanldeSearch();
@@ -59,11 +70,14 @@ const BrowseCategories = () => {
 
   const hanldeSearch = () => {
     let allAddsforFilter = [...allAdds];
-    const { cat, loc } = searchModal;
+    const { cat, loc, title } = searchModal;
     let filterAdds = allAddsforFilter;
-    if (cat && loc) {
+    if (cat && loc && title) {
       filterAdds = allAddsforFilter.filter(
-        (items) => items.category === cat && items.location === loc
+        (items) =>
+          items.category === cat &&
+          items.location === loc &&
+          items.title === title
       );
     } else {
       if (cat) {
@@ -72,10 +86,16 @@ const BrowseCategories = () => {
       if (loc) {
         filterAdds = allAddsforFilter.filter((items) => items.category === loc);
       }
+      if (title) {
+        filterAdds = allAddsforFilter.filter((items) =>
+          (items.title.toLowerCase() || {}).includes(
+            (title || {}).toLowerCase()
+          )
+        );
+      }
     }
     setAllAddsFilter(filterAdds);
   };
-
   const [CurrentPageKey, setCurrentPageKey] = useState(100);
   const browseCategory = (
     <React.Fragment>
@@ -93,7 +113,7 @@ const BrowseCategories = () => {
                     <div className="text-center text-white">
                       <h1 className>
                         <span className="font-weight-bold">
-                          {(allAdds || []).length}
+                          {(allAddsFilter || []).length}
                         </span>{" "}
                         Product Available
                       </h1>
@@ -110,16 +130,20 @@ const BrowseCategories = () => {
                     br-be-0 br-te-0
                   "
                             id="text"
+                            name="title"
                             placeholder="What are you looking for?"
+                            onChange={handleInput}
+                            value={searchModal.title}
                           />
                         </div>
                         <div className="col-xl-2 col-lg-3 col-md-12 mb-0">
                           <a
-                            onClick={(e) => {
-                              e.preventDefault();
-                            }}
                             href="#"
                             className="btn btn-lg btn-block btn-primary br-bs-0 br-ts-0"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              hanldeSearch()
+                            }}
                           >
                             Search
                           </a>

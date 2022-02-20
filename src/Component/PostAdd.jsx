@@ -92,6 +92,40 @@ class PostAdd extends Component {
 
     this.setState({ validated: true });
   };
+  handlePhoto = (e) => {
+    const { target } = e
+    const fileInfo = (Object.values(target.files) || "")[0].File
+
+  }
+
+  getBase64(file, cb) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result)
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
+  handlePhoto = async (e) => {
+    e.preventDefault();
+    debugger
+    const fileInfo = e.target.files
+    const formData = new FormData();
+    let newArr = [];
+    for (let i = 0; i < fileInfo.length; i++) {
+      newArr.push(fileInfo[i]);
+    }
+    formData.push('monfichier', newArr);
+
+    console.log(formData);
+
+    // axios
+    //   .post('http://localhost:3000/uploaddufichier', formData)
+    //   .then((res) => res.data);
+  };
   render() {
     const { categoryList, saveModal, locationList, validated } = this.state;
     const { editData, handleCloseEditAdd, handleUpdatePost } = this.props;
@@ -139,6 +173,19 @@ class PostAdd extends Component {
                           value={saveModal.title}
                           onChange={this.handleField}
                         />
+                      </div>
+                      <div className="form-group">
+                        <div className="form-file">
+                          <label className="form-label text-dark">
+                            Upload Photo
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control example-file-input-custom"
+                            name="example-file-input-custom"
+                            onChange={this.handlePhoto}
+                          />
+                        </div>
                       </div>
                       <div className="form-group">
                         <label className="form-label text-dark">Category</label>
@@ -223,15 +270,7 @@ class PostAdd extends Component {
                           as="textarea"
                         />
                       </div>
-                      {/* <div className="form-group">
-                      <div className="form-file">
-                        <input
-                          type="file"
-                          className="form-control example-file-input-custom"
-                          name="example-file-input-custom"
-                        />
-                      </div>
-                    </div> */}
+
                       {/* <div className="p-2 border mb-4">
                       <div className="upload-images d-flex">
                         <div>

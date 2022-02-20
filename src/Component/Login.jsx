@@ -73,18 +73,15 @@ class Login extends Component {
     const { open, close, hanldeRegisterPop } = this.props;
     return (
       <React.Fragment>
-        {/* <FacebookLogin
-            appId="921201001964201"
-            autoLoad={true}
-            fields="name,email,picture"
-            scope="public_profile,user_friends"
-            callback={this.responseFacebook}
-            icon="fa-facebook"
-          /> */}
-
         <Modal isOpen={open} size="lg">
           <ModalHeader toggle={close}>Login</ModalHeader>
           <ModalBody>
+            {/* <div
+              class="fb-like"
+              data-share="true"
+              data-width="450"
+              data-show-faces="true">
+            </div> */}
             <div className="single-page customerpage ">
               <div className="wrapper wrapper2 box-shadow-0">
                 <form id="login" className="card-body" tabIndex={500}>
@@ -134,13 +131,21 @@ class Login extends Component {
                 <div className="card-body">
                   <div className="text-center">
                     <div className="btn-group">
-                      <a
+                      {/* <a
                         onClick={this.handleFacebookPopUp}
                         href="#"
                         className="btn btn-icon me-2 brround"
                       >
                         <span className="fa fa-facebook" />
-                      </a>
+                      </a> */}
+                      {/* <FacebookLogin
+                        appId="732333577752077"
+                        // autoLoad={true}
+                        fields="name,email,picture"
+                        scope="public_profile,user_friends"
+                        callback={this.responseFacebook}
+                        icon="fa-facebook"
+                      /> */}
                     </div>
                     <div className="btn-group">
                       <a

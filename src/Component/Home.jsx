@@ -3,13 +3,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { callApi } from "../Utitlies/callAPI";
 import Swal from "sweetalert2";
-
+import { useDispatch } from "react-redux";
+import { useNavigate  } from "react-router";
 export default function Home() {
   useEffect(() => {
     getCategoris();
   }, []);
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [categorisData, setCategorisData] = useState([]);
+  const [searchField, setSearchField] = useState("");
   const [saveModal, setSaveModal] = useState({
     sendername: "",
     senderemail: "",
@@ -32,6 +36,19 @@ export default function Home() {
     const data = await axios.get(`${process.env.REACT_APP_URL_USER}/category`);
     setCategorisData(data?.data);
   };
+  const handleGlobalSearch = (e) => {
+    e.preventDefault()
+    dispatch({
+      type: "MainSearch",
+      data: searchField,
+    })
+    dispatch({
+      type: "ActiveNav",
+      data: 'Browse Categories',
+    });
+    navigate("/browse_categories")
+  }
+
   return (
     <React.Fragment>
       {/*Sliders Section*/}
@@ -71,6 +88,7 @@ export default function Home() {
                             "
                           id="text4"
                           placeholder="Looking for..."
+                          onChange={(e) => setSearchField(e.target.value)}
                         />
                       </div>
 
@@ -82,9 +100,7 @@ export default function Home() {
                               btn btn-lg btn-block text-dark
                               br-ts-md-0 br-bs-md-0
                             "
-                          onClick={(e) => {
-                            e.preventDefault();
-                          }}
+                          onClick={handleGlobalSearch}
                         >
                           Search Here
                         </a>

@@ -26,9 +26,19 @@ const ActiveNav = (state = { payload: "Home" }, action) => {
   return state;
 };
 
+// to handle Main Search
+const MainSearch = (state = { payload: "" }, action) => {
+  if (action.type === "MainSearch") {
+    return { ...state, payload: action.data };
+  }
+
+  return state;
+};
+
 const allreducers = combineReducers({
   logIn,
   userInfo,
   ActiveNav,
+  MainSearch
 });
 export default allreducers;

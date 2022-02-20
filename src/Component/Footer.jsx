@@ -316,9 +316,9 @@ export default function Footer() {
         </div>
       </footer>
       {/* Back to top */}
-      <a href="#top" id="back-to-top" style={{ display: "none" }}>
+      {/* <a href="#top" id="back-to-top" style={{ display: "none" }}>
         <i className="fa fa-rocket" />
-      </a>
+      </a> */}
     </section>
   );
 }
