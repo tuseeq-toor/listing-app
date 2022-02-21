@@ -34,7 +34,7 @@ export default function Home() {
   };
   const getCategoris = async () => {
     const data = await axios.get(`${process.env.REACT_APP_URL_USER}/category`);
-    setCategorisData(data?.data);
+    // setCategorisData(data?.data);
   };
   const handleGlobalSearch = (e) => {
     e.preventDefault()
