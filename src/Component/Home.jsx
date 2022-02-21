@@ -12,7 +12,7 @@ export default function Home() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [categorisData, setCategorisData] = useState([]);
+  // const [categorisData, setCategorisData] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [saveModal, setSaveModal] = useState({
     sendername: "",

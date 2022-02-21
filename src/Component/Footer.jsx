@@ -153,6 +153,10 @@ export default function Footer() {
                 <ul className="list-unstyled list-inline mt-3">
                   <li className="list-inline-item">
                     <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                       className="
                 btn-floating btn-sm
                 rgba-white-slight
@@ -165,6 +169,10 @@ export default function Footer() {
                   </li>
                   <li className="list-inline-item">
                     <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                       className="
                 btn-floating btn-sm
                 rgba-white-slight
@@ -177,6 +185,10 @@ export default function Footer() {
                   </li>
                   <li className="list-inline-item">
                     <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                       className="
                 btn-floating btn-sm
                 rgba-white-slight
@@ -189,6 +201,10 @@ export default function Footer() {
                   </li>
                   <li className="list-inline-item">
                     <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                       className="
                 btn-floating btn-sm
                 rgba-white-slight
